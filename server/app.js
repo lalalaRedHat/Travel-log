@@ -8,7 +8,7 @@ const bodyParser=require('body-parser');
 /*********** 引入路由器 ***********/
 const userRouter=require('./router/user.js'); //用户路由器
 
-
+// 按照user样式添加路由器 
 /*********** 引入路由器 ***********/
 
 
