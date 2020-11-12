@@ -260,9 +260,6 @@
 
 
   /* 文章样式 */
-  .list_bg{
-    /* background: #eee; */
-  }
   .articleItem{
     background: #fff;
     margin: 10px 0;
