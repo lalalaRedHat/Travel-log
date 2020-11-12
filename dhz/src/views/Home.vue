@@ -25,29 +25,175 @@
     <!-- banner结束 -->
 
     <!-- 标签栏开始 -->
-    <van-tabs v-model="active" sticky>
-      <van-tab title="标签 1">
+    <van-tabs v-model="active" sticky class="tabbar">
+      <van-tab title="标签 1" class="list_bg">
           <!-- 单一文章信息开始 -->
           <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              税后年薪十万、二十万、三十万的汽车工程师的真实生活
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
             </div>
             <!-- 文章标题结束 -->
-            <!-- 文章图文信息开始 -->
-            <div class="articleItem-wrapper">
-              <!-- 文章图像开始  -->
-              <div class="articleImg">
-                <img src="../assets/avatar/1.jpg" />
-              </div>
-              <!-- 文章图像结束 -->
-              <!-- 文章简介开始 -->
-              <div class="articleDes">
-                第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-              </div>
-              <!-- 文章简介结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
-            <!-- 文章图文信息结束 -->
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
+          </div>
+          <!-- 单一文章信息结束 -->
+                    <!-- 单一文章信息开始 -->
+          <div class="articleItem">
+            <!-- 文章标题开始 -->
+            <div class="articleItem-header">
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <div class="articleMsg">
+                <div>
+                  <span>幸福理论</span>
+                  <h3 class="articleItem-time">11/16 12:00</h3>
+                </div>
+                <h1>湖南省长沙市</h1>
+              </div>
+            </div>
+            <!-- 文章标题结束 -->
+            <!-- 文章简介开始 -->
+            <div class="articleDes">
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
+            </div>
+            <!-- 文章简介结束 -->
           </div>
           <!-- 单一文章信息结束 -->
       </van-tab>
@@ -60,6 +206,9 @@
 </template>
 
 <style scope>
+  .home{
+    background: #eee;
+  }
   .home .navb{
     background-color: transparent;
   }
@@ -95,38 +244,68 @@
   }
 
 
-
-  .home .van-tabs{
-    background: #ccc;
+  .tabbar{
+    margin: 10px 0;
   }
+
+
+
+
+
+
+
+
+
+
+
 
   /* 文章样式 */
+  .list_bg{
+    /* background: #eee; */
+  }
   .articleItem{
-    padding:10px 0;
-    margin: 10px 0.5rem;
     background: #fff;
-    /* border-bottom:1px solid #999; */
+    margin: 10px 0;
   }
   .articleItem-header{
-    font-weight: 600;
-    font-size: 17px;
+    font-weight: 500;
+    font-size: 16px;
     color: #1a1a1a;
-    line-height: 22px;
-  }
-  .articleItem-wrapper{
+    line-height: 16px;
     display: flex;
-    align-items: center;
-    padding-top: 10px;
-    width:100%;
+    flex-wrap: nowrap;
   }
   .articleImg{
-    margin-right:15px;
+    padding:15px;
   }
-  .articleImg img{
-    width: 112px;
-    height: 74px;
-    border-radius: 5px;
+  .articleMsg{
+    width: 100%;
+    margin-top: 15px;
   }
+  .articleMsg div{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .articleItem-header h1{
+    margin-top: 15px;
+  }
+  .articleItem-time{
+    /* float: right; */
+    align-self: center;
+    width: 100px;
+    color: #ccc;
+    font-weight: 300;
+    font-size: 14px;
+    /* margin: 15px 15px 0 0; */
+  }
+
+
+
+
+
+
   .articleDes{
     height: 65px;
     font-size: 15px;
@@ -136,6 +315,7 @@
     line-height: 21px;
     letter-spacing: normal;
     color: #444;
+    padding: 0 15px;
   }
 </style>
 
@@ -146,7 +326,8 @@ export default {
       value:"",
       show_border:false,
       active:"",
-      articles:[]
+      articles:[],
+      avatar:true
     }
   },
 }
