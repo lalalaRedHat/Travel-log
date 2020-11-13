@@ -26,7 +26,7 @@
 
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" sticky class="tabbar">
-      <van-tab title="标签 1" class="list_bg">
+      <van-tab title="全部" class="list_bg">
           <!-- 单一文章信息开始 -->
           <div class="articleItem">
             <!-- 文章标题开始 -->
@@ -197,9 +197,9 @@
           </div>
           <!-- 单一文章信息结束 -->
       </van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
+      <van-tab title="旅游">内容 2</van-tab>
+      <van-tab title="运动">内容 3</van-tab>
+      <van-tab title="美食">内容 4</van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
   </div>
@@ -279,6 +279,9 @@
     width: 100%;
     margin-top: 15px;
   }
+  .articleMsg span{
+    color: #5ABCC8;
+  }
   .articleMsg div{
     display: flex;
     flex-wrap: nowrap;
@@ -289,13 +292,11 @@
     margin-top: 15px;
   }
   .articleItem-time{
-    /* float: right; */
     align-self: center;
     width: 100px;
     color: #ccc;
     font-weight: 300;
     font-size: 14px;
-    /* margin: 15px 15px 0 0; */
   }
 
 
