@@ -26,7 +26,7 @@
 
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" sticky class="tabbar">
-      <van-tab title="全部" class="list_bg">
+      <van-tab title="全部">
           <!-- 单一文章信息开始 -->
           <div class="articleItem">
             <!-- 文章标题开始 -->
@@ -45,6 +45,9 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
           <!-- 单一文章信息结束 -->
@@ -248,15 +251,12 @@
     margin: 10px 0;
   }
 
-
-
-
-
-
-
-
-
-
+  .tabbar .van-tabs__line{
+    background-color: #5ABCC8;
+  }
+  .tabbar .van-tab--active{
+    color: #5ABCC8;
+  }
 
 
   /* 文章样式 */
