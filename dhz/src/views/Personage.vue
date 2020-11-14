@@ -47,9 +47,9 @@
         width: 100%;
     }
     .background{
-        width: 375px;height: 300px;
+        width: 100%g;height: 300px;
         background:
-         url('../assets/common/home_top.jpg')
+         url('../assets/common/asdfghjkl.jpg')
            repeat ;
           background-size: 100%
     }
