@@ -17,7 +17,9 @@ const userRouter=require('./router/user.js'); //用户路由器
 
 /*创建服务器*/
 const app=express();
-app.listen(8080);
+app.listen(8080 , ()=>{
+    console.log('app is running...');
+});
 
 
 /*托管静态资源*/
@@ -28,6 +30,9 @@ app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({
     extended:false
 }));
+
+
+
 
 
 /*********** 使用路由器并增加前缀 ***********/
