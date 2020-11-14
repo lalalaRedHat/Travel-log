@@ -3,10 +3,16 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Personage from '../views/Personage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/personage',
+    name: 'Personage',
+    component: Personage
+  },
   {
     path: '/',
     name: 'Home',
