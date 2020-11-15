@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion : 
+ * @version      : 
+ * @Author       : Lihy
+ * @Date         : 2020-11-13 00:31:22
+ * @LastEditors  : Lihy
+ * @LastEditTime : 2020-11-16 01:15:00
+-->
 <template>
 <div class="register">
   <div >
@@ -70,7 +78,7 @@ export default {
    },
 };
 </script>
-<style scope>
+<style>
 /* 按钮样式 */
  .register #button{
     border-radius: 15px;

@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion : 
+ * @version      : 
+ * @Author       : Lihy
+ * @Date         : 2020-11-13 00:31:22
+ * @LastEditors  : Lihy
+ * @LastEditTime : 2020-11-16 01:13:23
+-->
 <template>
   <div class="login">
     <van-field  type="digit" placeholder="请输入您的手机号" left-icon="friends-o"/>
@@ -34,7 +42,7 @@ export default {
 // 背景图片的样式
 
 </script>
-<style scope>
+<style>
 .login{
   background: url(../assets/img/dl.png);
   width: 100%;

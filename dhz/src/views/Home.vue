@@ -25,13 +25,14 @@
     <!-- banner结束 -->
 
     <!-- 标签栏开始 -->
-    <van-tabs v-model="active" sticky class="tabbar">
+    <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
+      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index">{{index}}</van-tab>
       <van-tab title="全部">
           <!-- 单一文章信息开始 -->
           <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -52,11 +53,10 @@
           </div>
           <!-- 单一文章信息结束 -->
 
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -70,14 +70,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -91,14 +92,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -112,14 +114,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -133,14 +136,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -154,14 +158,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -175,14 +180,15 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
-                    <!-- 单一文章信息开始 -->
-          <div class="articleItem">
+                    <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/1.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>幸福理论</span>
@@ -196,19 +202,18 @@
             <div class="articleDes">
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
+            <van-swipe-cell class="articleImg">
+              
+            </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
       </van-tab>
-      <van-tab title="旅游">内容 2</van-tab>
-      <van-tab title="运动">内容 3</van-tab>
-      <van-tab title="美食">内容 4</van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
   </div>
 </template>
 
-<style scope>
+<style>
   .home{
     background: #eee;
   }
@@ -324,9 +329,33 @@ export default {
       value:"",
       show_border:false,
       active:"",
-      articles:[],
-      avatar:true
+      // 日志的分类
+      classify:[],
+      avatar:true,
+      // 距离顶部位置
+      scrollTop:46,
+      // 是否吸顶
+      isFixed:false,
     }
+  },
+  methods:{
+    imbibition() {
+      if (scrollTop >= 46) {
+        this.isFixed = true;
+      } else {
+        this.isFixed = false;
+      }
+    }
+  },
+  mounted() {
+    // 获取日志的分类
+    this.axios.get('/journal/classify').then( res => {
+      this.classify = res.data.result;
+    })
+    // 获取日志
+    this.axios.get('/journal/diary').then( res => {
+      console.log(res.data);
+    })
   },
 }
 </script>
