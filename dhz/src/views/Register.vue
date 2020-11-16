@@ -7,12 +7,13 @@
       @click-left="onClickLeft"/>  
   </div>
 
-  <!-- 输入任意文本 -->
+      <!-- 输入任意文本 -->
   <van-form>
 
     <!-- 输入手机号，调起手机号键盘 -->
     <van-cell-group>
      <van-field placeholder="请输入您的手机号码" 
+        type='number'
         maxlength="11"
         @blur="checkPhone"
         v-model="phone"
@@ -43,7 +44,7 @@
       left-icon="label-o"
       maxlength="12"
       minlength="1"
-      @blur="checknickname"
+      
       v-model="nickname"
       />
         <!-- 密码 -->
@@ -58,36 +59,37 @@
     />
         <!-- 再次输入密码 -->
     <van-field  
-      type="conpassword" 
+      type="password" 
       v-model="conpassword"
-      placeholder="再次输入密码" 
+      placeholder="再次确认密码" 
+      maxlength="16"
+      minlength="6"
       left-icon="goods-collect-o" 
-
+      @blur="checkConpassword"
     />
         
         
         <!-- 性别选择 -->
     <van-field name="radio" label="选择性别">
       <template #input>
-        <van-radio-group v-model="radio" direction="horizontal">
+        <van-radio-group v-model="radio" direction="horizontal" >
           <van-radio name="1" class="a1">男</van-radio>
-          <van-radio name="2" class="a2">女</van-radio>
+          <van-radio name="0" class="a2">女</van-radio>
         </van-radio-group>
       </template>
     </van-field>
   </van-form>
 
 
-        <!-- 提交按钮 -->
-   <van-button round block type="info" native-type="submit" class="btn">
+       <!-- 提交按钮 -->
+   <van-button round block type="info" native-type="submit" class="btn" @click="handle">
       完成提交
    </van-button>
-    
+   <!-- 用户协议 -->
+   <div id="xieyi">
+    <input type="checkbox" class="input"> &nbsp;同意并接受 <span class="xy"> <router-link to="/Agreement">&lt;&lt;搭伙用户协议&gt;&gt;</router-link></span> 
+  </div>
 </div>
-
-
-
-
 </template>
 <script>
 export default {
@@ -104,20 +106,47 @@ export default {
       nickname:"",
       //密码
       password:'',
-      conpassword:""
+      conpassword:"",
     }
   },
   methods: {
+    //单击完成提交时得校验
+    handle(){
+      let radio=this.radio;
+      console.log(radio);
+      if( this.checkPhone()  && this.checkPassword() ){
+         this.$router.push("/")
+      }
+    },
+    
+
+
+
     //再次检验验证码
-  
+    checkConpassword() {
+      //校验两次密码是否一致
+      let password = this.password;
+      let conpassword = this.conpassword;
+      if (password == conpassword) {
+        return true;
+      } else {
+        this.$toast({
+          message: "两次密码不一致",
+          position: "middle",
+          duration: 4000,
+        });
+        return false;
+      }
+    },
 
 
     //检测密码
     checkPassword() {
       let password = this.password;
-      let passwordReg = /^[0-9A-Za-z\.\-_]{8,15}$/;
+      let passwordReg = /^[0-9A-Za-z\.\-_]{6,16}$/;
       if (passwordReg.test(password)) {
         this.perror = false;
+        return true;
       } else {
         this.$toast({
           message: "密码错误",
@@ -128,11 +157,7 @@ export default {
 
       }
     },
-    // 检测昵称
-     checknickname() {
-      let nickname = this.nickname;
-      let nicknameReg = /^([\u4E00-\u9FA5][A-Za-z0-9])+$/;
-    },
+   
 
     // 检测用户手机号
     checkPhone() {
@@ -153,14 +178,26 @@ export default {
 
     onClickLeft() {
       this.$router.push('/login')
-    },
-    onClickRight() {
-    this.$router.push('')
-    },
+     },
    },
 };
 </script>
+
+
 <style>
+/* 底部选择框 */
+/* .register .input{
+  foot-size:
+}; */
+/* 底部样式 */
+.register #xieyi{
+margin-top: 20px;
+margin-left: 20px;
+}
+.register .xy a{
+  color:  #F3AC3F;
+}
+
 /* 按钮样式 */
  .register #button{
     border-radius: 15px;

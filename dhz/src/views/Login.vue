@@ -7,20 +7,31 @@
     <!-- 用户验证 -->
     <div>
         <van-field
-          type="digit"
+         type='number'
           placeholder="请输入您的手机号"
           left-icon="friends-o"
           class="d1"
           maxlength='11'
+          @blur="checkPhone"
+          v-model="phone"
+         
+
         />
-        <van-field left-icon="goods-collect-o" placeholder="请输入您的密码" class="d2">
+        <van-field 
+          left-icon="goods-collect-o" 
+          placeholder="请输入您的密码" 
+          class="d2"
+          type="password" 
+          @blur="checkPassword"
+          v-model="password"
+          >
           <template #button>
             <van-button size="small" type="primary" id="btn1">忘记密码</van-button>
           </template>
         </van-field>
         <router-link to="/Register" class="regist">创建新用户</router-link>
         <!-- 提交按钮 -->
-        <van-button round block type="info" native-type="submit" class="btn">
+        <van-button round block type="info" native-type="submit" class="btn" @click="handle">
           确定登录
         </van-button>
     </div>
@@ -39,7 +50,63 @@
 </template>
 <script>
 export default {
+   data(){
+    return{
+      //手机号
+      iserror:false,
+      iserrorMsg:'',
+      text:"",
+      radio: '1',
+      phone:'',
+      value1:'',
+     //密码
+      password:'',
+     
+    }
+  },
   methods: {
+     //单击登录时校验按钮表单
+     handle(){
+       if(this.checkPhone() && this.checkPassword){
+         this.$router.push("/")
+       }
+     },
+     
+     //密码验证
+      checkPassword() {
+          let password = this.password;
+          let passwordReg = /^[0-9A-Za-z\.\-_]{8,15}$/;
+          if (passwordReg.test(password)) {
+            this.perror = false;
+          } else {
+            this.$toast({
+              message: "密码错误",
+              position: "middle",
+              duration: 5000,
+            });
+            return false;
+
+          }
+        },
+
+    //检测手机号
+    checkPhone() {
+      let phone = this.phone;
+      let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+      if (phoneReg.test(phone)) {
+        // 修改手机号的状态
+      
+        return true;
+      } else {
+        //终止函数的执行
+        this.$toast({
+              message: "手机号格式错误",
+              position: "middle",
+              duration: 5000,
+            });
+        return false;
+      }
+    },
     onClickLeft() {
       this.$router("/");
     },
@@ -51,6 +118,12 @@ export default {
 // 背景图片的样式
 </script>
 <style scope>
+ .login .van-icon-friends-o::before {
+   color: #fff;
+ }
+ .login .van-icon-goods-collect-o::before {
+    color: #fff;
+}
 .login {
   background: url(../assets/img/dl.png);
   width: 100%;
