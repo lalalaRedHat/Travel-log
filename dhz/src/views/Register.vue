@@ -1,57 +1,89 @@
-<!--
- * @Descripttion : 
- * @version      : 
- * @Author       : Lihy
- * @Date         : 2020-11-13 00:31:22
- * @LastEditors  : Lihy
- * @LastEditTime : 2020-11-16 01:15:00
--->
 <template>
 <div class="register">
   <div >
     <van-nav-bar
       title="注册"
       left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"/>  
+      @click-left="onClickLeft"/>  
   </div>
+
   <!-- 输入任意文本 -->
+  <van-form>
+
+    <!-- 输入手机号，调起手机号键盘 -->
+    <van-cell-group>
+     <van-field placeholder="请输入您的手机号码" 
+        maxlength="11"
+        @blur="checkPhone"
+        v-model="phone"
+        left-icon="friends-o"
+        :error='iserror'
+        :error-message='iserrorMsg'
+
+      />
+
+    </van-cell-group>
   
-  <van-field placeholder="手机号码"  left-icon="friends-o"/>
-  <!-- 输入手机号，调起手机号键盘 -->
+     <!-- 短信验证和验证码按钮 -->
+    <van-field
+        maxlength="6"
+        placeholder="请输入短信验证码"
+        left-icon="comment-o" 
+        v-model="value1"
+        >
+        <template #button>
+          <van-button size="small" type="warning">发送验证码</van-button>
+        </template>
+    </van-field>
 
-  <van-field
-    center
-    clearable
-    placeholder="请输入短信验证码"
-    left-icon="comment-o" 
-  >
-    <template #button>
-      <van-button size="small" type="warning">发送验证码</van-button>
-    </template>
-  </van-field>
-  <!-- 允许输入正整数，调起纯数字键盘 -->
-  <van-field  type="digit" placeholder="昵称(最多不超过10个字)" left-icon="label-o"/>
-  <!-- 允许输入数字，调起带符号的纯数字键盘 -->
-  <van-field  type="number" placeholder="密码(6-16位)" left-icon="goods-collect-o"/>
-  <!-- 输入密码 -->
-  <van-field  type="password" placeholder="再次输入密码" left-icon="goods-collect-o" />
+        <!-- 昵称 -->
+    <van-field  
+     
+      placeholder="昵称(8—12位)" 
+      left-icon="label-o"
+      maxlength="12"
+      minlength="1"
+      @blur="checknickname"
+      v-model="nickname"
+      />
+        <!-- 密码 -->
+    <van-field  
+      type="password" 
+      placeholder="密码(6-16位)" 
+      maxlength="16"
+      minlength="6"
+      left-icon="goods-collect-o"
+      @blur="checkPassword"
+      v-model="password"
+    />
+        <!-- 再次输入密码 -->
+    <van-field  
+      type="conpassword" 
+      v-model="conpassword"
+      placeholder="再次输入密码" 
+      left-icon="goods-collect-o" 
 
-  <!-- 性别选择 -->
-  <van-field name="radio" label="选择性别">
-    <template #input>
-      <van-radio-group v-model="radio" direction="horizontal">
-        <van-radio name="1">男</van-radio>
-        <van-radio name="2">女</van-radio>
-      </van-radio-group>
-    </template>
-  </van-field>
-  <!-- 提交按钮 -->
+    />
+        
+        
+        <!-- 性别选择 -->
+    <van-field name="radio" label="选择性别">
+      <template #input>
+        <van-radio-group v-model="radio" direction="horizontal">
+          <van-radio name="1" class="a1">男</van-radio>
+          <van-radio name="2" class="a2">女</van-radio>
+        </van-radio-group>
+      </template>
+    </van-field>
+  </van-form>
+
+
+        <!-- 提交按钮 -->
    <van-button round block type="info" native-type="submit" class="btn">
       完成提交
-    </van-button>
+   </van-button>
+    
 </div>
-
 
 
 
@@ -61,14 +93,64 @@
 export default {
   data(){
     return{
+      //手机号
+      iserror:false,
+      iserrorMsg:'',
       text:"",
-       radio: '1'
+      radio: '1',
+      phone:'',
+      value1:'',
+      // 昵称的注释
+      nickname:"",
+      //密码
+      password:'',
+      conpassword:""
     }
   },
   methods: {
-    // gotoMenu(){
-    //   this.$rootreplace('Login.vue')
-    // },
+    //再次检验验证码
+  
+
+
+    //检测密码
+    checkPassword() {
+      let password = this.password;
+      let passwordReg = /^[0-9A-Za-z\.\-_]{8,15}$/;
+      if (passwordReg.test(password)) {
+        this.perror = false;
+      } else {
+        this.$toast({
+          message: "密码错误",
+          position: "middle",
+          duration: 5000,
+        });
+        return false;
+
+      }
+    },
+    // 检测昵称
+     checknickname() {
+      let nickname = this.nickname;
+      let nicknameReg = /^([\u4E00-\u9FA5][A-Za-z0-9])+$/;
+    },
+
+    // 检测用户手机号
+    checkPhone() {
+      let phone = this.phone;
+      let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+      if (phoneReg.test(phone)) {
+        // 修改手机号的状态
+        this.iserror = false;
+        this.iserrorMsg='';
+        return true;
+      } else {
+        //终止函数的执行
+        this.iserror = true;
+        this.iserrorMsg='输入的手机号错误';
+        return false;
+      }
+    },
+
     onClickLeft() {
       this.$router.push('/login')
     },
@@ -89,6 +171,11 @@ export default {
      background-color: #5ABCC8;
     margin: 0 auto;
     border: 0;
+  }
+  /* 性别选择的样式 */
+    .register .van-radio__icon--checked .van-icon{
+    background-color: #F3AC3F;
+    border-color: #F3AC3F;
   }
 </style>
  

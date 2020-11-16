@@ -1,58 +1,123 @@
-<!--
- * @Descripttion : 
- * @version      : 
- * @Author       : Lihy
- * @Date         : 2020-11-13 00:31:22
- * @LastEditors  : Lihy
- * @LastEditTime : 2020-11-16 01:13:23
--->
 <template>
   <div class="login">
-    <van-field  type="digit" placeholder="请输入您的手机号" left-icon="friends-o"/>
-    <van-field
-      left-icon="goods-collect-o"
-        placeholder="请输入您的密码"
-      >
-        <template #button>
-        <van-button size="small" type="primary" id="btn">忘记密码</van-button>
-      </template>
-    </van-field>
-    <p>注册新用户</p>
-    <!-- 提交按钮 -->
-   <van-button round block type="info" native-type="submit" class="btn">
-      完成提交
-    </van-button>
+   <van-image :src="require('../assets/logo.png')"  class="qc"/>
+
+
+
+    <!-- 用户验证 -->
+    <div>
+        <van-field
+          type="digit"
+          placeholder="请输入您的手机号"
+          left-icon="friends-o"
+          class="d1"
+          maxlength='11'
+        />
+        <van-field left-icon="goods-collect-o" placeholder="请输入您的密码" class="d2">
+          <template #button>
+            <van-button size="small" type="primary" id="btn1">忘记密码</van-button>
+          </template>
+        </van-field>
+        <router-link to="/Register" class="regist">创建新用户</router-link>
+        <!-- 提交按钮 -->
+        <van-button round block type="info" native-type="submit" class="btn">
+          确定登录
+        </van-button>
+    </div>
+
+
+    <!-- 第三方引入 -->
+    <div class="shejiao">
+      <router-link to="" class="qq">
+        <van-image :src="require('../assets/img/qq.png')" /> QQ登录
+      </router-link>
+      <router-link to="" class="wx">
+        微信登录<van-image :src="require('../assets/img/wx.png')" />
+      </router-link>
+    </div>
   </div>
-  
 </template>
 <script>
 export default {
-  data(){
-
-  },
   methods: {
     onClickLeft() {
-      this.$router('/')
+      this.$router("/");
     },
     onClickLeft() {
-    this.$rooter.push('/register')
+      this.$rooter.push("/register");
     },
   },
-}
+};
 // 背景图片的样式
-
 </script>
-<style>
-.login{
+<style scope>
+.login {
   background: url(../assets/img/dl.png);
   width: 100%;
- }
-   .login #btn{
-   border-radius: 20px;
-   background-color:#ccc;
-   margin: 0 auto;
-   border: 0;
-   width: 80px;
-  }
+  /* height: 800px;
+  margin-top: 200px; */
+  position: relative;
+  background-size: 100%;
+}
+.login .qc{
+  width: 100%;
+}
+.login .qc img{
+  width: 60%;
+  margin: 20% auto;
+}
+/* 用户透明 */
+.login .d1,.login .d2{
+  background: transparent;
+}
+/* 忘记密码样式 */
+.login #btn1 {
+  background-color: #ccc;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 0;
+  width: 80px;
+  /* background: transparent; */
+}
+/* 注册的样式 */
+.login .regist {
+  color: #fff;
+font-weight: 500;
+  margin-left: 280px;
+}
+/* 登录的样式 */
+.login .btn {
+  border-radius: 20px;
+  background-color: #ccc;
+  background: transparent;
+  border: 2px solid #ccc;
+  
+  margin: 0 auto;
+  
+  width: 90%;
+  margin-top: 15px;
+}
 
+/* 整体页面的样式 */
+/* .login{
+    margin-top: 200px;
+    height: 300px;
+    position: relative;
+  } */
+/* 微信QQ样式 */
+.login .shejiao {
+  justify-content: space-between;
+  display: flex;
+  margin-top: 150px;
+}
+.login .qq,
+.login .wx {
+  color: #ccc;
+}
+.login .qq {
+  margin-left: 10px;
+}
+.login .wx {
+  margin-right: 10px;
+}
 </style>
