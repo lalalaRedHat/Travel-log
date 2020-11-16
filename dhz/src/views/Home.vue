@@ -9,24 +9,18 @@
         <van-icon name="search" color="#fff" size="24" />
       </template>
     </van-nav-bar>
-    <!-- <van-search
-      v-model="value"
-      shape="round"
-      background="transparent"
-      placeholder="搜索搭伙信息" fiexd
-    /> -->
     <!-- 导航栏结束 -->
 
-    <!-- banner开始 -->
+    <!-- 首页配文开始 -->
     <div class="top_bg">
       <h1>打开你的心扉</h1>
       <span>发现志同道合的朋友，让你的行程不孤单</span>
     </div>
-    <!-- banner结束 -->
+    <!-- 首页配文结束 -->
 
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
-      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index">{{index}}</van-tab>
+      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :id="item.cid.toString()">{{index+1}}</van-tab>
       <van-tab title="全部">
           <!-- 单一文章信息开始 -->
           <div class="articleItem">
@@ -52,161 +46,6 @@
             <!-- 文章简介结束 -->
           </div>
           <!-- 单一文章信息结束 -->
-
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
-                    <div class="articleItem">
-            <!-- 文章标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
-                </div>
-                <h1>湖南省长沙市</h1>
-              </div>
-            </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              
-            </van-swipe-cell>
-            <!-- 文章简介结束 -->
-          </div>
       </van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
@@ -328,9 +167,20 @@ export default {
     return {
       value:"",
       show_border:false,
-      active:"",
-      // 日志的分类
+      // 默认被选定的顶部选项卡及面板
+      active: 1,
+      // 默认被选定的顶部选项卡
+      selectedTab: "index",
+      // 存储服务器返回的日志分类
       classify:[],
+      // 用于存储服务器返回结果
+      diarys: [],
+      // 页码
+      page: 1,
+      //总页数
+      pagecount:0,
+
+
       avatar:true,
       // 距离顶部位置
       scrollTop:46,
@@ -345,7 +195,26 @@ export default {
       } else {
         this.isFixed = false;
       }
-    }
+    },
+    loadData(cid, page) {
+      //显示加载提示框
+      this.$indicator.open({
+        text:'加载中...',
+        spinnerType:'fading-circle'
+      });
+
+
+    },
+  },
+  watch:{
+    //监听顶部选项卡发生变化时发送请求以获取对应的日志数据
+    active(value) {
+      //清空之前保存的文章数据
+      this.articles = [];
+      //设置页码变量值为1(因为刚刚切换到任何一个选项卡时都是显示该类别下的第1页的数据)
+      this.page = 1;
+      console.log(value+1);
+    },
   },
   mounted() {
     // 获取日志的分类
@@ -353,8 +222,9 @@ export default {
       this.classify = res.data.result;
     })
     // 获取日志
-    this.axios.get('/journal/diary').then( res => {
-      console.log(res.data);
+    this.axios.get('/journal/diary?cid=' + this.active).then( res => {
+      this.diarys = res.data.result;
+      console.log(res.data.result);
     })
   },
 }
