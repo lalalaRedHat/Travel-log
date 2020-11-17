@@ -4,7 +4,7 @@
  * @Author       : Lihy
  * @Date         : 2020-11-16 22:39:07
  * @LastEditors  : Lihy
- * @LastEditTime : 2020-11-17 01:40:18
+ * @LastEditTime : 2020-11-17 20:12:39
  */
 /*引入express框架*/
 const express=require('express');
@@ -40,24 +40,23 @@ j.get('/diary',(req,res)=>{
     
     console.log(cid);
     //SQL查询日志全部信息
-    let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,picture_pic FROM dhz_journal INNER JOIN dhz_users ON users_id = uid INNER JOIN dhz_picture ON journal_id = picture_id WHERE journal_classify=?';
+    let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=?';
     // 执行SQL查询
     pool.query(sql,[cid],(err,result)=>{
         if (err) throw err;
-        // let data1 = result
-        res.send(result);
-        // result.forEach((value, index, array) => {
-        //     // 查询日志附带的图片
-        //     let sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
-        //     pool.query(sql,[value.picture_id],(err,pic)=>{
-        //         if (err) throw err;
-        //         // console.log(data1,pic);
-        //         res.send({
-        //              result: data1,
-        //         });
-        
-        //     });
-        // })
+        let data1 = result;
+        result.forEach((value, index, array) => {
+            // 查询日志附带的图片
+            let sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
+            pool.query(sql,[value.jid],(err,pic)=>{
+                if (err) throw err;
+                // 拼接每个日志需要的图片
+                value.pic = pic;
+                if(index==array.length-1){
+                    res.send({ code:1,result: data1 })
+                };
+            });
+        })
     });
 
 });
