@@ -5,10 +5,16 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Personage from '../views/Personage.vue'
 import Agreement from '../views/Agreement.vue'
+import Vip from '../views/Vip.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/vip',
+    name: 'Vip',
+    component:Vip
+  },
   {
     path: '/agreement',
     name: 'Agreement',

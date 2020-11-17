@@ -34,7 +34,7 @@
             <van-tab title="个人资料" name="a">
                  <div>
                     <van-cell title="搭伙号" is-link value="011" />
-                    <van-cell title="昵称" is-link value="haochen" />
+                    <van-cell title="昵称"   is-link value="haochen" />
                     <van-cell title="联系电话" is-link value="189****8780" />
                     <van-cell title="性别" is-link value="男" />
                     <van-cell title="生日" is-link value="1997" />
