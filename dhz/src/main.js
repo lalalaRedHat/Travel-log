@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import qs from 'qs'
-import moment from 'moment'
+import moment from 'moment';
 
 // 导入VantUI的所有组件
 import VantUI from 'vant';
@@ -16,9 +16,15 @@ Vue.use(VantUI);
 // 配置请求的基准URL地址
 axios.defaults.baseURL = 'http://127.0.0.1:8888';
 Vue.prototype.axios = axios;
-
+// Vue.prototype.moment = moment;
 Vue.prototype.qs = qs;
-Vue.prototype.moment = moment;
+
+// 定义一个全局过滤器实现日期格式化
+Vue.filter('datefmt', function (input, fmtstring) {
+  return moment.unix(input).format(fmtstring)
+})
+
+// Vue.prototype.moment = moment;
 
 Vue.config.productionTip = false
 

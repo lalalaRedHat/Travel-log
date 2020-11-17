@@ -20,19 +20,20 @@
 
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
-      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :id="item.cid.toString()">{{index+1}}</van-tab>
-      <van-tab title="全部">
-          <!-- 单一文章信息开始 -->
+      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :id="item.cid.toString()">
+        <!-- 单一文章信息开始 -->
+        <div v-for="(diary,index) of diarys" :key="index">
           <div class="articleItem">
             <!-- 文章标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require('../assets/avatar/bf6d72c1-db6f-448b-8f1a-0a6c576ea115.jpg')" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="contain" class="articleImg"/>
               <div class="articleMsg">
                 <div>
-                  <span>幸福理论</span>
-                  <h3 class="articleItem-time">11/16 12:00</h3>
+                  <span>{{diary.nickname}}</span>
+                  <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
+                  <h3 class="articleItem-time">{{diary.log_time | datefmt('Y年MM月DD日')}}</h3>
                 </div>
-                <h1>湖南省长沙市</h1>
+                <h1>{{diary.journal_city}}</h1>
               </div>
             </div>
             <!-- 文章标题结束 -->
@@ -41,11 +42,12 @@
               第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
             </div>
             <van-swipe-cell class="articleImg">
-              
+              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了
             </van-swipe-cell>
             <!-- 文章简介结束 -->
           </div>
-          <!-- 单一文章信息结束 -->
+        <!-- 单一文章信息结束 -->
+        </div>
       </van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
@@ -141,6 +143,8 @@
     color: #ccc;
     font-weight: 300;
     font-size: 14px;
+    text-align: right;
+    padding-right: 15px;
   }
 
 
@@ -224,7 +228,7 @@ export default {
     // 获取日志
     this.axios.get('/journal/diary?cid=' + this.active).then( res => {
       this.diarys = res.data.result;
-      console.log(res.data.result);
+      console.log(this.diarys);
     })
   },
 }

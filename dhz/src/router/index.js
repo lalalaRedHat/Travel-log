@@ -5,11 +5,20 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Personage from '../views/Personage.vue'
 import Agreement from '../views/Agreement.vue'
+<<<<<<< HEAD
 import Mylv from '../views/Mylv.vue'
+=======
+import Vip from '../views/Vip.vue'
+>>>>>>> 8211e3ee2349545ed424a73589d6f94ace50f119
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/vip',
+    name: 'Vip',
+    component:Vip
+  },
   {
     path: '/agreement',
     name: 'Agreement',
