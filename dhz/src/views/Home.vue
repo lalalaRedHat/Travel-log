@@ -21,32 +21,51 @@
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
       <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :id="item.cid.toString()">
-        <!-- 单一文章信息开始 -->
+        <!-- 单一日志信息开始 -->
         <div v-for="(diary,index) of diarys" :key="index">
           <div class="articleItem">
-            <!-- 文章标题开始 -->
+            <!-- 日志标题开始 -->
             <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="contain" class="articleImg"/>
+              <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
               <div class="articleMsg">
                 <div>
                   <span>{{diary.nickname}}</span>
                   <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
-                  <h3 class="articleItem-time">{{diary.log_time | datefmt('Y年MM月DD日')}}</h3>
+                  <h3 class="articleItem-time">{{diary.log_time/1000 | datefmt('YYYY-MM-DD')}}</h3>
                 </div>
                 <h1>{{diary.journal_city}}</h1>
               </div>
             </div>
-            <!-- 文章标题结束 -->
-            <!-- 文章简介开始 -->
-            <div class="articleDes">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了，研究生毕业工作还不满两年。工资水平自然也是处于第一档。自报一下家门，目前在上汽乘用车工作，市场部，虽然目前做的是市场部工作，但是本科研究生读的都是车辆工程专业，而且由于对汽车的喜欢，也一直没有完全丢掉。所以在我们品牌传播这里，涉及到底层机械电气等原理的部分，一般都会来问问我，算是一项差异化优势吧。上汽乘用车地处于
-            </div>
-            <van-swipe-cell class="articleImg">
-              第一次回答这么私密的问题，紧张兮兮！跟众多行业前辈比起来，我可能是一个汽车界的萌新了
+            <!-- 日志标题结束 -->
+            <!-- 日志正文开始 -->
+            <div class="articleDes">{{diary.content}}</div>
+            <!-- 日志正文结束 -->
+            <!-- 日志图片开始 -->
+            <van-swipe-cell class="journalImg">
+                                                                            <!-- 传入图片数组 -->
+              <div v-for="(item,index) of diary.pic" :key="index" @click="preview(diary.pic,index)">
+                <van-image
+                  width="7.8rem"
+                  height="7.8rem"
+                  fit="cover"
+                  :src="require(`../assets/journal-pic/${item.picture_pic}`)"
+                >
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+              </div>
             </van-swipe-cell>
-            <!-- 文章简介结束 -->
+            <!-- 日志图片结束 -->
+            <!-- 日志观看留言开始 -->
+            <div class="journalInfor">
+              <span>观看：{{diary.browse || 0}}</span>
+              <span>留言：{{diary.msg_number || 0}}</span>
+            </div>
+            <!-- 日志观看留言结束 -->
+            
           </div>
-        <!-- 单一文章信息结束 -->
+        <!-- 单一日志信息结束 -->
         </div>
       </van-tab>
     </van-tabs>
@@ -69,48 +88,48 @@
     background: url(../assets/common/home_top.jpg) no-repeat center;
     background-size: 100%;
   }
-  .top_bg h1,.top_bg span{
+  .home .top_bg h1,.top_bg span{
     color: #fff;
     font-size: 2rem;
     margin-left: 0.5rem;
   }
-  .top_bg span{
+  .home .top_bg span{
     width: 320px;
     font-size: 1.2rem;
     font-weight: lighter;
     display: block;
   }
-  .top_bg::before{
+  .home .top_bg::before{
     display: table;
     content: "";
   }
-  .top_bg h1{
+  .home .top_bg h1{
     margin-top: 210px;
   }
-  .top_bg span{
+  .home .top_bg span{
     margin-top: 10px;
     line-height: 1.5rem;
   }
 
 
-  .tabbar{
+  .home .tabbar{
     margin: 10px 0;
   }
 
-  .tabbar .van-tabs__line{
+  .home .tabbar .van-tabs__line{
     background-color: #5ABCC8;
   }
-  .tabbar .van-tab--active{
+  .home .tabbar .van-tab--active{
     color: #5ABCC8;
   }
 
 
   /* 文章样式 */
-  .articleItem{
+  .home .articleItem{
     background: #fff;
     margin: 10px 0;
   }
-  .articleItem-header{
+  .home .articleItem-header{
     font-weight: 500;
     font-size: 16px;
     color: #1a1a1a;
@@ -118,26 +137,30 @@
     display: flex;
     flex-wrap: nowrap;
   }
-  .articleImg{
-    padding:15px;
+  .home .articleImg{
+    padding: 15px;
   }
-  .articleMsg{
+  .home .articleImg img{
+    border: 1px solid #5ABCC8;
+  }
+  .home .articleMsg{
     width: 100%;
     margin-top: 15px;
   }
-  .articleMsg span{
+  .home .articleMsg span{
     color: #5ABCC8;
   }
-  .articleMsg div{
+  .home .articleMsg div{
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
   }
 
-  .articleItem-header h1{
-    margin-top: 15px;
+  .home .articleItem-header h1{
+    margin-top: 18px;
+    color: #3a3a3a;
   }
-  .articleItem-time{
+  .home .articleItem-time{
     align-self: center;
     width: 100px;
     color: #ccc;
@@ -146,13 +169,17 @@
     text-align: right;
     padding-right: 15px;
   }
-
-
-
-
-
-
-  .articleDes{
+  .home .journalImg>div>div+div{
+    margin-left: 3px;
+  }
+  .home .journalImg>div{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+    box-sizing: border-box;
+    margin: 15px auto 16px;
+  }
+  .home .articleDes{
     height: 65px;
     font-size: 15px;
     overflow: hidden;
@@ -163,9 +190,22 @@
     color: #444;
     padding: 0 15px;
   }
+  .home .journalInfor{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    color: #ccc;
+    font-size: 14px;
+    padding-bottom: 15px;
+  }
+  .home .journalInfor>span{
+    margin-right: 15px;
+  }
 </style>
 
 <script>
+import { ImagePreview } from "vant"; // 引入Vant图片预览组件
+
 export default {
   data() {
     return {
@@ -183,7 +223,6 @@ export default {
       page: 1,
       //总页数
       pagecount:0,
-
 
       avatar:true,
       // 距离顶部位置
@@ -206,9 +245,27 @@ export default {
         text:'加载中...',
         spinnerType:'fading-circle'
       });
-
-
     },
+
+    // 图片预览
+    preview(images,index){
+      console.log(images);
+      // 创建需要预览的图片 URL 空数组
+      let pic = [];
+      images.forEach((value, index, array) => {
+        //              获取路径前面的url  拼接  图片名
+        // pic.push( `${window.location.origin}/img/${value.picture_pic}`);
+        pic.push( 'require(../assets/journal-pic/' + value.picture_pic );
+      }); 
+      console.log(pic);
+      // ImagePreview 图片预览组件
+      ImagePreview({
+        images:pic, //需要预览的图片 URL 数组
+        showIndex:true, //是否显示页码
+        loop:false, //是否开启循环播放
+        startPosition:index //图片预览起始位置索引
+      });
+    }
   },
   watch:{
     //监听顶部选项卡发生变化时发送请求以获取对应的日志数据
