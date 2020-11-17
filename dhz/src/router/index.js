@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Personage from '../views/Personage.vue'
 import Agreement from '../views/Agreement.vue'
+import Mylv from '../views/Mylv.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/agreement',
     name: 'Agreement',
     component:Agreement
+  },
+  {
+    path: '/mylv',
+    name: 'Mylv',
+    component:Mylv
   },
   {
     path: '/personage',
