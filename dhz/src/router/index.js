@@ -7,6 +7,7 @@ import Personage from '../views/Personage.vue'
 import Agreement from '../views/Agreement.vue'
 import Mylv from '../views/Mylv.vue'
 import Vip from '../views/Vip.vue'
+import KeepDiary from '../views/KeepDiary.vue'
 
 Vue.use(VueRouter)
 
@@ -47,13 +48,18 @@ const routes = [
     component: Register
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/keepdiary',
+    name: 'KeepDiary',
+    component: KeepDiary
+  },
+  // {
+  //   path: '/about',
+  //   name: 'About',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // }
 ]
 
 const router = new VueRouter({
