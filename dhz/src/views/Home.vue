@@ -253,7 +253,6 @@ export default {
 
     // 图片预览
     preview(images,index){
-      console.log(images);
       // 创建需要预览的图片 URL 空数组
       let pic = [];
       images.forEach((value, index, array) => {

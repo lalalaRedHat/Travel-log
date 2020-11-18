@@ -1,11 +1,3 @@
-/*
- * @Descripttion : 
- * @version      : 
- * @Author       : Lihy
- * @Date         : 2020-11-16 22:39:07
- * @LastEditors  : Lihy
- * @LastEditTime : 2020-11-18 13:05:36
- */
 /*引入express框架*/
 const express=require('express');
 //引入连接池
@@ -38,7 +30,7 @@ j.get('/diary',(req,res)=>{
     //声明总页数变量
     let pagecount;
     
-    console.log(cid);
+    // console.log(cid);
     //SQL查询日志全部信息
     let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=?';
     // 执行SQL查询
@@ -62,7 +54,10 @@ j.get('/diary',(req,res)=>{
 });
 
 
-
+// 发布日志插入数据
+j.post('/diaryadd',(req,res)=>{
+    console.log(`1`);
+});
 
 
 //导出路由
