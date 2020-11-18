@@ -8,6 +8,8 @@ import Agreement from '../views/Agreement.vue'
 import Mylv from '../views/Mylv.vue'
 import Vip from '../views/Vip.vue'
 import KeepDiary from '../views/KeepDiary.vue'
+import Tag from '../views/Tag.vue'
+
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,11 @@ const routes = [
     path: '/vip',
     name: 'Vip',
     component:Vip
+  },
+  {
+    path: '/tag',
+    name: 'Tag',
+    component:Tag
   },
   {
     path: '/agreement',
