@@ -22,7 +22,7 @@ const routes = [
     component:Agreement
   },
   {
-    path: '/mylv',
+    path: '/mylv/:id',
     name: 'Mylv',
     component:Mylv
   },

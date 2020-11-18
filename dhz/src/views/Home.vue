@@ -3,7 +3,9 @@
     <!-- 导航栏 -->
     <van-nav-bar title="搭伙族" left-arrow fixed :border="show_border" class="navb">
       <template #left>
-        <van-icon name="user-circle-o" color="#fff" size="24"  />
+        <router-link to="/personage">
+          <van-icon name="user-circle-o" color="#fff" size="24"  /> 
+        </router-link>
       </template>
       <template #right>
         <van-icon name="search" color="#fff" size="24" />
@@ -20,51 +22,53 @@
 
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
-      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :id="item.cid.toString()">
+      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" >
         <!-- 单一日志信息开始 -->
         <div v-for="(diary,index) of diarys" :key="index">
-          <div class="articleItem">
-            <!-- 日志标题开始 -->
-            <div class="articleItem-header">
-              <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
-              <div class="articleMsg">
-                <div>
-                  <span>{{diary.nickname}}</span>
-                  <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
-                  <h3 class="articleItem-time">{{diary.log_time/1000 | datefmt('YYYY-MM-DD')}}</h3>
+          <router-link :to="`/mylv/${diary.jid}`">
+            <div class="articleItem">
+              <!-- 日志标题开始 -->
+              <div class="articleItem-header">
+                <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
+                <div class="articleMsg">
+                  <div>
+                    <span>{{diary.nickname}}</span>
+                    <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
+                    <h3 class="articleItem-time">{{diary.log_time/1000 | datefmt('YYYY-MM-DD')}}</h3>
+                  </div>
+                  <h1>{{diary.journal_city}}</h1>
                 </div>
-                <h1>{{diary.journal_city}}</h1>
               </div>
-            </div>
-            <!-- 日志标题结束 -->
-            <!-- 日志正文开始 -->
-            <div class="articleDes">{{diary.content}}</div>
-            <!-- 日志正文结束 -->
-            <!-- 日志图片开始 -->
-            <van-swipe-cell class="journalImg">
-                                                                            <!-- 传入图片数组 -->
-              <div v-for="(item,index) of diary.pic" :key="index" @click="preview(diary.pic,index)">
-                <van-image
-                  width="7.8rem"
-                  height="7.8rem"
-                  fit="cover"
-                  :src="require(`../assets/journal-pic/${item.picture_pic}`)"
-                >
-                  <template v-slot:loading>
-                    <van-loading type="spinner" size="20" />
-                  </template>
-                </van-image>
+              <!-- 日志标题结束 -->
+              <!-- 日志正文开始 -->
+              <div class="articleDes">{{diary.content}}</div>
+              <!-- 日志正文结束 -->
+              <!-- 日志图片开始 -->
+              <van-swipe-cell class="journalImg">
+                                                                              <!-- 传入图片数组 -->
+                <div v-for="(item,index) of diary.pic" :key="index" @click="preview(diary.pic,index)">
+                  <van-image
+                    width="7.8rem"
+                    height="7.8rem"
+                    fit="cover"
+                    :src="require(`../assets/journal-pic/${item.picture_pic}`)"
+                  >
+                    <template v-slot:loading>
+                      <van-loading type="spinner" size="20" />
+                    </template>
+                  </van-image>
+                </div>
+              </van-swipe-cell>
+              <!-- 日志图片结束 -->
+              <!-- 日志观看留言开始 -->
+              <div class="journalInfor">
+                <span>观看：{{diary.browse || 0}}</span>
+                <span>留言：{{diary.msg_number || 0}}</span>
               </div>
-            </van-swipe-cell>
-            <!-- 日志图片结束 -->
-            <!-- 日志观看留言开始 -->
-            <div class="journalInfor">
-              <span>观看：{{diary.browse || 0}}</span>
-              <span>留言：{{diary.msg_number || 0}}</span>
+              <!-- 日志观看留言结束 -->
+              
             </div>
-            <!-- 日志观看留言结束 -->
-            
-          </div>
+          </router-link>
         <!-- 单一日志信息结束 -->
         </div>
       </van-tab>
@@ -212,7 +216,7 @@ export default {
       value:"",
       show_border:false,
       // 默认被选定的顶部选项卡及面板
-      active: 1,
+      active: 0,
       // 默认被选定的顶部选项卡
       selectedTab: "index",
       // 存储服务器返回的日志分类
@@ -254,10 +258,8 @@ export default {
       let pic = [];
       images.forEach((value, index, array) => {
         //              获取路径前面的url  拼接  图片名
-        // pic.push( `${window.location.origin}/img/${value.picture_pic}`);
-        pic.push( 'require(../assets/journal-pic/' + value.picture_pic );
+        pic.push( `http://127.0.0.1:8888/journal-pic/${value.picture_pic}`);
       }); 
-      console.log(pic);
       // ImagePreview 图片预览组件
       ImagePreview({
         images:pic, //需要预览的图片 URL 数组
@@ -274,7 +276,11 @@ export default {
       this.articles = [];
       //设置页码变量值为1(因为刚刚切换到任何一个选项卡时都是显示该类别下的第1页的数据)
       this.page = 1;
-      console.log(value+1);
+      // 监听到变化的值发送 active  获取当前的日志
+      this.axios.get('/journal/diary?cid=' + value).then( res => {
+        this.diarys = res.data.result;
+      })
+      
     },
   },
   mounted() {
@@ -285,7 +291,6 @@ export default {
     // 获取日志
     this.axios.get('/journal/diary?cid=' + this.active).then( res => {
       this.diarys = res.data.result;
-      console.log(this.diarys);
     })
   },
 }
