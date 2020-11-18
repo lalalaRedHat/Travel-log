@@ -20,6 +20,8 @@
         <van-field 
           left-icon="goods-collect-o" 
           placeholder="请输入您的密码" 
+          maxlength='16'
+          minlength='8'
           class="d2"
           type="password" 
           @blur="checkPassword"
@@ -48,6 +50,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
    data(){
@@ -75,7 +78,7 @@ export default {
      //密码验证
       checkPassword() {
           let password = this.password;
-          let passwordReg = /^[0-9A-Za-z\.\-_]{8,15}$/;
+          let passwordReg = /^[0-9A-Za-z\.\-_]{8,16}$/;
           if (passwordReg.test(password)) {
             this.perror = false;
           } else {

@@ -85,9 +85,9 @@
    <van-button round block type="info" native-type="submit" class="btn" @click="handle">
       完成提交
    </van-button>
-   <!-- 用户协议 -->
+      <!-- 用户协议 -->
    <div id="xieyi">
-    <input type="checkbox" class="input"> &nbsp;同意并接受 <span class="xy"> <router-link to="/Agreement">&lt;&lt;搭伙用户协议&gt;&gt;</router-link></span> 
+    <input type="checkbox" class="input" @click="xy" :checked="d"> &nbsp;同意并接受 <span class="xy"> <router-link to="/Agreement">《搭伙用户协议》</router-link></span> 
   </div>
 </div>
 </template>
@@ -107,17 +107,32 @@ export default {
       //密码
       password:'',
       conpassword:"",
+      d:false
     }
   },
   methods: {
-    //单击完成提交时得校验
-    handle(){
-      let radio=this.radio;
-      console.log(radio);
-      if( this.checkPhone()  && this.checkPassword() ){
-         this.$router.push("/")
+    //用户协议校验
+    xy(){
+      if(this.true){
+        this.d=false;
+
+      }else{
+        this.d=true;
+        // return true;
       }
+      
     },
+     //单击完成提交时得校验
+        handle(){
+          //let radio=this.radio;
+        //   console.log(radio);
+        //   if( this.checkPhone()  && this.checkPassword() ){
+        //      this.$router.push("/")
+        //   }
+          if(this.d){
+            this.$router.push("/")
+          } 
+        }, 
     
 
 
@@ -193,6 +208,7 @@ export default {
 .register #xieyi{
 margin-top: 20px;
 margin-left: 20px;
+color:#A7A7A7;
 }
 .register .xy a{
   color:  #F3AC3F;
