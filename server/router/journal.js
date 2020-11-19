@@ -56,7 +56,8 @@ j.get('/diary',(req,res)=>{
 
 // 发布日志插入数据
 j.post('/diaryadd',(req,res)=>{
-    console.log(`1`);
+    let obj = req.body;
+    console.log(obj);
 });
 
 

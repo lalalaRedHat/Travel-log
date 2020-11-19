@@ -40,23 +40,45 @@
       <van-field
         readonly
         clickable
-        name="picker"
+        name="current_city"
         :value="current_city"
         label="当前城市"
         label-width="4.2em"
         placeholder="点击选择城市"
-        @click="showPicker = true"
+        @click="showcity = true"
       />
-      <van-popup v-model="showPicker" position="bottom">
+      <van-popup v-model="showcity" position="bottom">
         <van-picker
           show-toolbar
-          :columns="columns"
-          @confirm="onConfirm"
-          @cancel="showPicker = false"
+          :columns="city"
+          @confirm="oncity"
+          @cancel="showcity = false"
         />
       </van-popup>
     </van-cell-group>
     <!-- 城市位置结束 -->
+    <!-- 文章分类开始 -->
+    <van-cell-group>
+      <van-field
+        readonly
+        clickable
+        name="classify"
+        :value="classify"
+        label="文章分类"
+        label-width="4.2em"
+        placeholder="点击选择分类"
+        @click="showclassify = true"
+      />
+      <van-popup v-model="showclassify" position="bottom">
+        <van-picker
+          show-toolbar
+          :columns="diaryclassify"
+          @confirm="onclassify"
+          @cancel="showclassify = false"
+        />
+      </van-popup>
+    </van-cell-group>
+    <!-- 文章分类结束 -->
   </div>
 </template>
 
@@ -110,8 +132,13 @@ export default {
       ],
       // 当前城市
       current_city:"",
-      columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-      showPicker: false,
+      city: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+      showcity: false,
+      // 文章分类
+      classify:"",
+      diaryclassify: ['全部', '当前城市', '旅游', '运动', '餐饮美食','其他'],
+      showclassify: false,
+      
     }
   },
   methods: {
@@ -119,14 +146,34 @@ export default {
       // 此时可以自行将文件上传至服务器
       console.log(file);
     },
-    onConfirm(value) {
-      this.value = value;
-      this.showPicker = false;
+    // 城市选择器
+    oncity(value) {
+      this.current_city = value;
+      this.showcity = false;
     },
-    
+    // 分类的选择器
+    onclassify(value){
+      this.classify = value;
+      this.showclassify = false;
+    },
     // 发布日志
     release(){
-      this.axios.post('/journal/diaryadd').then( res => {
+      // 获取当前时间
+      let current_time = this.moment().format('X');
+      let object = {
+        // 日志标题
+        "journal_title":this.article_tit,
+        // 日志正文
+        "content":this.article,
+        // 发布时间
+        "log_time":current_time,
+        // 当前城市
+        "journal_city":this.current_city,
+        // 当前分类
+        "journal_classify":this.classify
+      }
+      console.log(object);
+      this.axios.post('/journal/diaryadd',this.qs.stringify(object)).then( res => {
         console.log("发送了");
       })
     }
