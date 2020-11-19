@@ -2,6 +2,49 @@
 const express=require('express');
 //引入连接池
 const pool=require('../pool.js');
+// 引入Multer模块
+const multer = require('multer');
+// 引入UUID模块
+const uuid = require('uuid');
+
+
+/*********** 文件上传配置 ***********/
+// 定义存储规则
+let storage = multer.diskStorage({
+    //上传时目录的规则
+    //req,代表的是当前的HTTP请求对象
+    //file,代表是当前上传的文件对象
+    //cb(callback),回调函数,让Multer按照指定的规则进行相关的操作
+    destination:function(req,file,cb){
+      //cb(null,destination)
+      //null代表错误对象
+      //destination代表文件上传的目录
+      cb(null,'./public/journal-pic');
+    },
+    //上传时文件名称的规则
+    filename:function(req,file,cb){
+      // 为上传的文件重新生成一个带有扩展名的文件名称               
+      let mainname = uuid.v1();
+      // file代表的当前上传的文件对象,它包含有以下属性
+      // originalname,文件对象的原始名称,如23456435745.jpg
+      //2. 获取文件原来的扩展名 
+      let extension = file.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase();
+      //3. 将1和2拼接在一起形成新的文件名称 
+      let filename = mainname + '.' + extension;
+      // 4.通过回调函数告诉Multer,让其按指定的规则进行命名
+      cb(null,filename);
+    }
+  });
+  // 使用存储规则创建Multer对象
+  const upload = multer({
+    storage:storage
+  })
+
+/*********** 文件上传配置 ***********/
+
+
+
+
 //创建日志路由器
 const j=express.Router();
 

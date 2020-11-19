@@ -27,7 +27,7 @@
     <!-- 正文结束 -->
     <!-- 图片上传开始 -->
     <div class="picUpload">
-      <van-uploader v-model="fileList" multiple :max-count="8"/>
+      <van-uploader v-model="fileList" multiple :max-count="8" :after-read="afterRead" accept="image/png,image/jpeg,image/jpg"/>
     </div>
     <!-- 图片上传结束 -->
     <!-- 标题开始 -->
@@ -125,11 +125,8 @@ export default {
       article:"",
       // 文章标题
       article_tit:"",
-      fileList: [
-        // Uploader 根据文件后缀来判断是否为图片文件
-        // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
-        // { url: 'https://cloud-image', isImage: true },
-      ],
+      // 上传的图片
+      fileList: [],
       // 当前城市
       current_city:"",
       city: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
@@ -138,14 +135,27 @@ export default {
       classify:"",
       diaryclassify: ['全部', '当前城市', '旅游', '运动', '餐饮美食','其他'],
       showclassify: false,
-      
+      // 是否上传
+      isupload:false
     }
   },
   methods: {
+    // 获取图片读取后的参数
     afterRead(file) {
-      // 此时可以自行将文件上传至服务器
       console.log(file);
+      // 创建表单数据对象
+      let formData = new FormData();
+      // 循环遍历获取
+      for (let i = 0, n = file.length; i < n; i++) {
+        //获取到File对象
+        let files = file[i].file;
+        // console.log(file[i].file);
+        formData.append('journal_pic',files);
+      }
+      return formData;
     },
+
+    
     // 城市选择器
     oncity(value) {
       this.current_city = value;
@@ -171,8 +181,14 @@ export default {
         "journal_city":this.current_city,
         // 当前分类
         "journal_classify":this.classify
-      }
+      };
       console.log(object);
+
+      // 获取不到上面返回的值
+      // let formData = this.$options.methods.afterRead();
+      // console.log(formData);
+
+
       this.axios.post('/journal/diaryadd',this.qs.stringify(object)).then( res => {
         console.log("发送了");
       })

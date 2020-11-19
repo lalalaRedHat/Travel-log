@@ -25,7 +25,7 @@
       <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" >
         <!-- 单一日志信息开始 -->
         <div v-for="(diary,index) of diarys" :key="index">
-          <router-link :to="`/mylv/${diary.jid}`">
+          <router-link :to="`/mylv/${diary.jid}`" >
             <div class="articleItem">
               <!-- 日志标题开始 -->
               <div class="articleItem-header">

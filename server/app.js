@@ -4,6 +4,10 @@ const express=require('express');
 const bodyParser=require('body-parser');
 // 引入CORS模块
 const cors = require('cors');
+// 引入Multer模块
+const multer = require('multer');
+// 引入UUID模块
+const uuid = require('uuid');
 
 
 
@@ -47,6 +51,27 @@ app.use(bodyParser.urlencoded({
 app.use(cors({
     origin:['http://localhost:8080','http://127.0.0.1:8888']
 }));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
