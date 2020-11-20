@@ -283,10 +283,12 @@ export default {
     },
   },
   mounted() {
+    this.$store.dispatch("obtain_classify");
     // 获取日志的分类
     this.axios.get('/journal/classify').then( res => {
       this.classify = res.data.result;
     })
+
     // 获取日志
     this.axios.get('/journal/diary?cid=' + this.active).then( res => {
       this.diarys = res.data.result;

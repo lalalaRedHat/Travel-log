@@ -4,10 +4,9 @@ const express=require('express');
 const bodyParser=require('body-parser');
 // 引入CORS模块
 const cors = require('cors');
-// 引入Multer模块
-const multer = require('multer');
-// 引入UUID模块
-const uuid = require('uuid');
+// 引入fs模块
+const fs = require('fs');
+
 
 
 

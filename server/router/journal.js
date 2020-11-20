@@ -6,6 +6,8 @@ const pool=require('../pool.js');
 const multer = require('multer');
 // 引入UUID模块
 const uuid = require('uuid');
+// 引入fs模块
+const fs = require('fs');
 
 
 /*********** 文件上传配置 ***********/
@@ -98,8 +100,12 @@ j.get('/diary',(req,res)=>{
 
 
 // 发布日志插入数据
-j.post('/diaryadd',(req,res)=>{
+j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
+    //获取到上传文件形成的对象数组
+    let files = req.files;
+    //获取发送的文本数据
     let obj = req.body;
+    console.log(files);
     console.log(obj);
 });
 

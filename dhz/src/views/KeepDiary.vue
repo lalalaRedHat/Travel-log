@@ -131,12 +131,13 @@ export default {
       current_city:"",
       city: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
       showcity: false,
+
       // 文章分类
       classify:"",
-      diaryclassify: ['全部', '当前城市', '旅游', '运动', '餐饮美食','其他'],
+      diaryclassify:[],
       showclassify: false,
       // 是否上传
-      isupload:false
+      data:{}
     }
   },
   methods: {
@@ -152,7 +153,7 @@ export default {
         // console.log(file[i].file);
         formData.append('journal_pic',files);
       }
-      return formData;
+      this.data = formData;
     },
 
     
@@ -170,29 +171,50 @@ export default {
     release(){
       // 获取当前时间
       let current_time = this.moment().format('X');
-      let object = {
+      // 获取保存的formdata
+      let formData = this.data;
+      // 获取查到的日志分类id
+      let classify_id = this.$store.state.cid;
+      console.log(this.$store.state.cid);
+      
+      // 获取当前分类值
+      console.log( this.classify ) ;
+
+
+
+      // 当什么都没没写时不允许提交
+      if ( !this.article_tit && !this.article && !this.current_city && !this.classify ) {
+        // 没写东西没有动作
+      } else {
+
+        // 在表单数据对象中添加数据
         // 日志标题
-        "journal_title":this.article_tit,
+        formData.set("journal_title",this.article_tit);
         // 日志正文
-        "content":this.article,
+        formData.set("content",this.article);
         // 发布时间
-        "log_time":current_time,
+        formData.set("log_time",current_time);
         // 当前城市
-        "journal_city":this.current_city,
+        formData.set("journal_city",this.current_city);
         // 当前分类
-        "journal_classify":this.classify
-      };
-      console.log(object);
-
-      // 获取不到上面返回的值
-      // let formData = this.$options.methods.afterRead();
-      // console.log(formData);
-
-
-      this.axios.post('/journal/diaryadd',this.qs.stringify(object)).then( res => {
-        console.log("发送了");
-      })
+        formData.set("journal_classify",this.classify);
+        // 用户id
+        formData.set("users_id",1);
+  
+        // 提交表单
+        this.axios.post('/journal/diaryadd',formData).then( res => {
+          console.log("发送了");
+        })
+      }
     }
+  },
+  mounted(){
+    // 获取分类
+    let classifys = this.$store.state.classify;
+    classifys.forEach((value, index, array) => {
+      this.diaryclassify.push(value.classify)
+    })
+
   }
 }
 </script>
