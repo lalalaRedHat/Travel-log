@@ -146,14 +146,27 @@ export default {
       console.log(file);
       // 创建表单数据对象
       let formData = new FormData();
-      // 循环遍历获取
-      for (let i = 0, n = file.length; i < n; i++) {
-        //获取到File对象
-        let files = file[i].file;
-        // console.log(file[i].file);
-        formData.append('journal_pic',files);
+      // 如果传的参的content属性存在则为对象
+      if (file.hasOwnProperty('content')) {
+
+        // 直接保存到data中
+        formData.append('journal_pic',file);
+        // 保存在变量data中
+        this.data = formData;
+
+      } else {//否则为数组
+
+        // 循环遍历获取
+        for (let i = 0, n = file.length; i < n; i++) {
+          //获取到File对象
+          let files = file[i].file;
+          // console.log(file[i].file);
+          formData.append('journal_pic',files);
+        }
+        // 保存在变量data中
+        this.data = formData;
+
       }
-      this.data = formData;
     },
 
     
@@ -171,45 +184,61 @@ export default {
     release(){
       // 获取当前时间
       let current_time = this.moment().format('X');
-      // 获取保存的formdata
-      let formData = this.data;
-      // 获取查到的日志分类id
-      let classify_id = this.$store.state.cid;
-      console.log(this.$store.state.cid);
-      
-      // 获取当前分类值
-      console.log( this.classify ) ;
 
+
+      // 声明一个变量保存对应的分类id
+      let classify_id;
+      // 保存获取的分类数组
+      let classify_arr = this.$store.state.classify;
+      // 循环分类数组
+      classify_arr.forEach((value, index, array) => {
+        // 如果选中文章分类名等于分类数组里的名
+        if ( this.classify ==  value.classify) {
+          // 就将当前id赋值给classify_id
+          classify_id = value.cid
+        }
+      })
 
 
       // 当什么都没没写时不允许提交
-      if ( !this.article_tit && !this.article && !this.current_city && !this.classify ) {
+      if ( !this.article_tit || !this.article || !this.current_city || !this.classify ) {
         // 没写东西没有动作
-      } else {
+        return
 
-        // 在表单数据对象中添加数据
-        // 日志标题
-        formData.set("journal_title",this.article_tit);
-        // 日志正文
-        formData.set("content",this.article);
-        // 发布时间
-        formData.set("log_time",current_time);
-        // 当前城市
-        formData.set("journal_city",this.current_city);
-        // 当前分类
-        formData.set("journal_classify",this.classify);
-        // 用户id
-        formData.set("users_id",1);
+      } else { // 写了东西
+
+          // 获取保存的formdata
+          let formData = this.data;
   
-        // 提交表单
-        this.axios.post('/journal/diaryadd',formData).then( res => {
-          console.log("发送了");
-        })
+          // 在表单数据对象中添加数据
+          // 日志标题
+          formData.set("journal_title",this.article_tit);
+          // 日志正文
+          formData.set("content",this.article);
+          // 发布时间
+          formData.set("log_time",current_time);
+          // 当前城市
+          formData.set("journal_city",this.current_city);
+          // 当前分类
+          formData.set("journal_classify",classify_id);
+          // 用户id
+          formData.set("users_id",1);
+
+          console.log(formData);
+          // 提交表单
+          this.axios.post('/journal/diaryadd',formData).then( res => {
+            // 获取到code为1跳转到首页
+            if (res.data.code == 1) {
+              this.$notify('发布成功');
+              this.$router.push('/');
+            }
+
+          })
       }
     }
   },
   mounted(){
-    // 获取分类
+    // 分类选择器获取数据数组
     let classifys = this.$store.state.classify;
     classifys.forEach((value, index, array) => {
       this.diaryclassify.push(value.classify)

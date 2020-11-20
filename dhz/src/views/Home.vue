@@ -1,14 +1,16 @@
 <template>
   <div class="home">
     <!-- 导航栏 -->
-    <van-nav-bar title="搭伙族" left-arrow fixed :border="show_border" class="navb">
+    <van-nav-bar title="搭伙族" left-arrow fixed :border="show_border" :style="{backgroundColor:backgroundColor}">
       <template #left>
         <router-link to="/personage">
-          <van-icon name="user-circle-o" color="#fff" size="24"  /> 
+          <van-icon name="user-circle-o" :color="nva_icon_color" size="24"  /> 
         </router-link>
       </template>
       <template #right>
-        <van-icon name="search" color="#fff" size="24" />
+        <router-link to="/keepdiary">
+          <van-icon name="edit" :color="nva_icon_color" size="24" />
+        </router-link>
       </template>
     </van-nav-bar>
     <!-- 导航栏结束 -->
@@ -21,8 +23,8 @@
     <!-- 首页配文结束 -->
 
     <!-- 标签栏开始 -->
-    <van-tabs v-model="active" lazy-render :scroll="imbibition" class="tabbar">
-      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" >
+    <van-tabs v-model="active" swipeable lazy-render class="tabbar" sticky offset-top="46" animated>
+      <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" :offset-top="36">
         <!-- 单一日志信息开始 -->
         <div v-for="(diary,index) of diarys" :key="index">
           <router-link :to="`/mylv/${diary.jid}`" >
@@ -46,7 +48,7 @@
               <!-- 日志图片开始 -->
               <van-swipe-cell class="journalImg">
                                                                               <!-- 传入图片数组 -->
-                <div v-for="(item,index) of diary.pic" :key="index" @click="preview(diary.pic,index)">
+                <div v-for="(item,index) of diary.pic" :key="index" @click.prevent="preview(diary.pic,index)">
                   <van-image
                     width="7.8rem"
                     height="7.8rem"
@@ -80,9 +82,6 @@
 <style>
   .home{
     background: #eee;
-  }
-  .home .navb{
-    background-color: transparent;
   }
   .home .van-nav-bar__title{
     color: #fff;
@@ -218,7 +217,7 @@ export default {
       // 默认被选定的顶部选项卡及面板
       active: 0,
       // 默认被选定的顶部选项卡
-      selectedTab: "index",
+      // selectedTab: "index",
       // 存储服务器返回的日志分类
       classify:[],
       // 用于存储服务器返回结果
@@ -229,27 +228,35 @@ export default {
       pagecount:0,
 
       avatar:true,
-      // 距离顶部位置
-      scrollTop:46,
       // 是否吸顶
       isFixed:false,
+      // 导航图标颜色
+      nva_icon_color:"#fff",
+      // 背景颜色
+      backgroundColor:"transparent",
     }
   },
   methods:{
-    imbibition() {
-      if (scrollTop >= 46) {
-        this.isFixed = true;
-      } else {
-        this.isFixed = false;
+    // 导航栏适配变色
+    handleScroll () {
+      // 获取滚动的距离
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      // 获取标题dom
+      let nav_title = document.getElementsByClassName("van-nav-bar__title")[0];
+      // 如果吸顶距离大于等于46
+      if (scrollTop >= 287) {
+        this.backgroundColor = "#fff";
+        this.nva_icon_color = "#5ABCC8";
+        nav_title.style.color = "#5ABCC8";
+        this.show_border = true;
+       } else { // 否则
+        this.backgroundColor = "transparent"
+        this.nva_icon_color = "#fff"
+        nav_title.style.color = "#fff";
+        this.show_border = false;
       }
     },
-    loadData(cid, page) {
-      //显示加载提示框
-      this.$indicator.open({
-        text:'加载中...',
-        spinnerType:'fading-circle'
-      });
-    },
+
 
     // 图片预览
     preview(images,index){
@@ -271,10 +278,15 @@ export default {
   watch:{
     //监听顶部选项卡发生变化时发送请求以获取对应的日志数据
     active(value) {
+      console.log(value);
       //清空之前保存的文章数据
       this.articles = [];
+
+
       //设置页码变量值为1(因为刚刚切换到任何一个选项卡时都是显示该类别下的第1页的数据)
       this.page = 1;
+
+
       // 监听到变化的值发送 active  获取当前的日志
       this.axios.get('/journal/diary?cid=' + value).then( res => {
         this.diarys = res.data.result;
@@ -283,7 +295,6 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("obtain_classify");
     // 获取日志的分类
     this.axios.get('/journal/classify').then( res => {
       this.classify = res.data.result;
@@ -293,6 +304,13 @@ export default {
     this.axios.get('/journal/diary?cid=' + this.active).then( res => {
       this.diarys = res.data.result;
     })
+
+    this.$store.dispatch("obtain_classify");
+
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>
