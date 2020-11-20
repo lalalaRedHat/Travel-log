@@ -2,21 +2,29 @@
     <!-- 顶部信息 -->
     <div>
         <van-nav-bar
-  title="VIP信息"
-  left-text="返回"
-  left-arrow
-  @click-left="onClickLeft"
-/>
+            title="VIP信息"
+            left-text="返回"
+            left-arrow
+            @click-left="onClickLeft"
+   
+          />
+          
     <!-- 等级 -->
     <van-cell-group>
         <van-cell title="VIP等级" value="V1" />
         <van-cell title="当前积分" value="1(获得19分后升级)" />
         <van-cell title="我的特权"  />
-        
+            <!-- 聊天图片 -->
+          <van-image
+            round
+            width="10rem"
+            height="10rem"
+            :src="require('../assets/vip/liaotianshi.jpg')"
+          />
+          
     </van-cell-group>
-    <van-grid>
-      <van-grid-item icon="../assets/vip/liaotianshi.jpg" icon-size="50px" text="建立聊天室" />  
-    </van-grid>
+
+
      
         <van-cell title="如何获取积分"  />
         <van-cell title="01 在线时间(有限制)"  />
@@ -37,7 +45,7 @@ import { Toast } from 'vant';
 export default {
   methods: {
     onClickLeft() {
-      Toast('返回');
+      this.$router.push('/personage');
     },
   }
 };

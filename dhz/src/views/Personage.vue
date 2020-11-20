@@ -2,10 +2,16 @@
 <div class="personage">
         <!-- 背景 -->
     <div class="background">
-        <van-nav-bar title="" left-arrow fixed :border="show_border" class="navb">
+        <van-nav-bar title="" 
+            left-arrow fixed 
+            :border="show_border" 
+            class="navb" 
+            @click-left="onClickLeft" 
+           
+            >
 
             <template #left>
-                <van-icon name="arrow-left" color="#fff" size="24"  />
+                <van-icon name="arrow-left" color="#fff" size="24" />
             </template>
 
             <template #right>
@@ -39,9 +45,13 @@
                     <van-cell title="性别" is-link value="男" />
                     <van-cell title="生日" is-link value="1997" />
                     <van-cell title="所在地" is-link value="山东" />
-                    <van-cell title="会员等级" is-link value="LV1" />
+
+
+                    <van-cell title="会员等级" is-link value="LV1" to="Vip"/>
+
+                    
                     <van-cell title="实名认证" is-link value="未完成" />
-                    <van-cell title="个性标签" is-link value="这个人很懒" />
+                    <van-cell title="个性标签" is-link value="这个人很懒" to="Tag"/>
                 </div>
             </van-tab>
             <van-tab title="照片墙" name="b">
@@ -69,7 +79,7 @@
           background-size: 100%
     }
     .image{
-      padding: 40px 150px;
+      padding: 40px 100px;
       
     }
     .pname{
@@ -97,7 +107,9 @@ export default {
     }
   },
    methods:{
-    
+    onClickLeft() {
+      this.$router.push("/");
+    },
     }
 };
 
