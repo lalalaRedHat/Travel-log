@@ -6,7 +6,9 @@
         title="干货 | 北海道亲子游常识" 
         left-text="" >
         <template #left>
+          <router-link to="/">
             <van-icon class="jian" name="arrow-left" />
+          </router-link>
         </template>
         <template #right>
             <van-icon class="xin" name="like-o" />

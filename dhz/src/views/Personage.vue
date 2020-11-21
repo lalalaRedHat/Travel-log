@@ -115,22 +115,22 @@
            repeat ;
           background-size: 100%
     }
-    .image{
+    .background .image{
       padding: 40px 100px;
-      
+      text-align: center;
     }
-    .pname{
+    .background .pname{
         font-size: 2rem;
         color:rgba(27, 29, 27, 0.904);
     }
-    .man{
+    .background .man{
         margin: -30px 310px;
     }
-    .grade{
+    .background .grade{
         width: 100px;
         margin: 10px 30px;
     }
-     .personage  .van-tabs__line{
+    .background .personage  .van-tabs__line{
     background-color: #5ABCC8;
   }
 </style>
