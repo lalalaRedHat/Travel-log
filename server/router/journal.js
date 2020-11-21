@@ -146,10 +146,19 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
         }
         
     });
-
-
 });
 
+j.get('/details/',(req,res)=>{
+    //获取URL地址栏的参数
+    let id = req.query.id;
+    let sql='SELECT (nickname,autograph,vip,avatar,journal_title,content,log_time,browse,msg_number,fabulous,journal_city) FROM dhz_journal INNER JION dhz_users ON uid=users_id WHERE jid=3';
+   pool.query(sql,[id],(error,result)=>{
+   if(error) throw error;
+    res.send({message:'查询成功',code:1,
+art:result[0]})
+    });
+console.log(id);
+});
 
 //导出路由
 module.exports=j;

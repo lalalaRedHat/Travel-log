@@ -1,7 +1,7 @@
 <template>
   <div class="mylv">
     <!-- 头 -->
-        <div>
+        <div >
         <van-nav-bar  class="head"
         title="干货 | 北海道亲子游常识" 
         left-text="" >
@@ -34,7 +34,7 @@
             <van-image 
             src="../assets/img/m3.png" />
             <van-loading type="spinner" />
-            <van-grid-item text="群里提出的问题以及完整会打给打架整理在下面啦！北海道群持续开放更新，有计划的你，曼度普攻略干货的你，欢迎一起来玩儿哦~" />
+            <van-grid-item text="正文" />
         </van-grid>
         </div>
         <div class="topf">
@@ -53,18 +53,17 @@
         </van-grid>
         </div>
         <!-- 评论区 -->
-        <div>
-            <van-skeleton title avatar :row="3" />
-        </div>
+        
   </div>
   
 </template>
 
+<script>
 export default {
    data() {
     return {
-      
-    };
+      art:{}
+    }
   },
   methods: {
     // 头  
@@ -76,8 +75,17 @@ export default {
     },
     
   },
-};
+    mounted() {
+    
+   let id = this.$route.params.aid;
+     //获取服务器穿的id值
+   this.axios.get('/journal/details?id='+id).then(res=>{
+     this.art=res.data.art;
 
+    })
+  }
+}
+</script>
 <style>
   .mylv .head{
     background-color: rgb(7, 193, 206); 

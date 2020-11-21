@@ -30,7 +30,7 @@ const routes = [
     component:Agreement
   },
   {
-    path: '/mylv/:id',
+    path: '/mylv/:aid',
     name: 'Mylv',
     component:Mylv
   },
