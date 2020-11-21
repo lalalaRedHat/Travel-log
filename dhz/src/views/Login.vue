@@ -134,6 +134,7 @@ export default {
   margin-top: 200px; */
   position: relative;
   background-size: 100%;
+  padding-bottom: 40px;
 }
 .login .qc{
   width: 100%;

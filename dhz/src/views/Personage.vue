@@ -54,9 +54,46 @@
                     <van-cell title="个性标签" is-link value="这个人很懒" to="Tag"/>
                 </div>
             </van-tab>
+        <div class="img">
             <van-tab title="照片墙" name="b">
-                <van-uploader v-model="fileList" multiple :max-count="9" />
+                <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/449eb2c2-60a4-4a33-8bc4-902b5a0a5e82.jpg')"
+                    />
+                <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/61bd8bcd-817b-4ae3-91b3-5677c10529ee.jpg')"
+                    />
+                    <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/6d2cb06e-9292-44e4-9f90-67a6f5eaadbe.jpg')"
+                    />
+                    <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/709934c5-0826-4883-8703-19c57b707e78.jpg')"
+                    />
+                    <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/a0228683-91e5-4b76-9c5e-eab52d9a46dd.jpg')"
+                    />
+                    <van-image
+                    width="125px"
+                    height="100px"
+                    fit="fill"
+                    :src="require('../assets/journal-pic/a8210544-460c-49ee-ae7f-c1398437332c.jpg')"
+                    />
             </van-tab>
+        </div>
         </van-tabs>
 
                
@@ -93,6 +130,9 @@
         width: 100px;
         margin: 10px 30px;
     }
+     .personage  .van-tabs__line{
+    background-color: #5ABCC8;
+  }
 </style>
 <script>
 
