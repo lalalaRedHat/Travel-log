@@ -7,7 +7,7 @@
             :border="show_border" 
             class="navb" 
             @click-left="onClickLeft" 
-           
+            @click-right="onClickRight"
             >
 
             <template #left>
@@ -109,6 +109,9 @@ export default {
    methods:{
     onClickLeft() {
       this.$router.push("/");
+    },
+     onClickRight() {
+      this.$router.push("/login");
     },
     }
 };
