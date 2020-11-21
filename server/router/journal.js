@@ -135,7 +135,7 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
             //遍历操作,将上传的文件信息依次写入到数据库
             let sql = 'INSERT upload(picture_pic,journal_id) VALUES(?,(SELECT jid FROM dhz_journal WHERE journal_title=?))';
             files.forEach(file=>{
-                pool.query( sql,[ file.originalname,journal_title ],(err,filename)=>{
+                pool.query( sql,[ file.originalname,obj.journal_title ],(err,filename)=>{
                     if (err) throw err;
                 });
             });
