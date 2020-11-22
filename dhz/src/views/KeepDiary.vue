@@ -52,6 +52,7 @@
           show-toolbar
           :columns="city"
           @confirm="oncity"
+          @change="onChange"
           @cancel="showcity = false"
         />
       </van-popup>
@@ -118,6 +119,10 @@
 </style>
 
 <script>
+const citys = {
+  浙江: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+  福建: ['福州', '厦门', '莆田', '三明', '泉州'],
+};
 export default {
   data(){
     return {
@@ -129,8 +134,20 @@ export default {
       fileList: [],
       // 当前城市
       current_city:"",
-      city: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+      // city: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+      city: [
+        {
+          values: Object.keys(citys),
+          className: 'column1',
+        },
+        {
+          values: citys['浙江'],
+          className: 'column2',
+          defaultIndex: 2,
+        },
+      ],
       showcity: false,
+
 
       // 文章分类
       classify:"",
@@ -150,7 +167,7 @@ export default {
       if (file.hasOwnProperty('content')) {
 
         // 直接保存到data中
-        formData.append('journal_pic',file);
+        formData.append('journal_pic',file.file);
         // 保存在变量data中
         this.data = formData;
 
@@ -170,11 +187,19 @@ export default {
     },
 
     
-    // 城市选择器
+    // 城市选择
     oncity(value) {
-      this.current_city = value;
+      this.current_city = value[0] + value[1];
       this.showcity = false;
     },
+    // 切换省
+    onChange(picker, values) {
+      picker.setColumnValues(1, citys[values[0]]);
+    },
+
+
+
+
     // 分类的选择器
     onclassify(value){
       this.classify = value;
@@ -183,7 +208,7 @@ export default {
     // 发布日志
     release(){
       // 获取当前时间
-      let current_time = this.moment().format('X');
+      let current_time = this.moment().format('x');
 
 
       // 声明一个变量保存对应的分类id
@@ -203,6 +228,7 @@ export default {
       // 当什么都没没写时不允许提交
       if ( !this.article_tit || !this.article || !this.current_city || !this.classify ) {
         // 没写东西没有动作
+        this.$toast.fail('请填写日志内容');
         return
 
       } else { // 写了东西
@@ -229,7 +255,10 @@ export default {
           this.axios.post('/journal/diaryadd',formData).then( res => {
             // 获取到code为1跳转到首页
             if (res.data.code == 1) {
-              this.$notify('发布成功');
+              this.$notify({
+                type: 'success',
+                message: '发布成功' 
+              });
               this.$router.push('/');
             }
 

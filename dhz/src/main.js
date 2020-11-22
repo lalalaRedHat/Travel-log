@@ -1,11 +1,3 @@
-/*
- * @Descripttion : 
- * @version      : 
- * @Author       : Lihy
- * @Date         : 2020-11-18 09:10:46
- * @LastEditors  : Lihy
- * @LastEditTime : 2020-11-19 19:37:15
- */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -13,6 +5,7 @@ import store from './store'
 import axios from 'axios'
 import qs from 'qs'
 import moment from 'moment';
+import { Lazyload } from 'vant';
 
 // 导入VantUI的所有组件
 import VantUI from 'vant';
@@ -32,6 +25,12 @@ Vue.prototype.qs = qs;
 Vue.filter('datefmt', function (input, fmtstring) {
   return moment.unix(input).format(fmtstring)
 })
+
+// 全局注册懒加载
+Vue.use(Lazyload, {
+  lazyComponent: true
+});
+
 
 Vue.config.productionTip = false
 

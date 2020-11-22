@@ -25,54 +25,65 @@
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" swipeable lazy-render class="tabbar" sticky offset-top="46" animated>
       <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" :offset-top="36">
-        <!-- 单一日志信息开始 -->
-        <div v-for="(diary,index) of diarys" :key="index">
-          <router-link :to="`/mylv/${diary.jid}`" >
-            <div class="articleItem">
-              <!-- 日志标题开始 -->
-              <div class="articleItem-header">
-                <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
-                <div class="articleMsg">
-                  <div>
-                    <span>{{diary.nickname}}</span>
-                    <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
-                    <h3 class="articleItem-time">{{diary.log_time/1000 | datefmt('YYYY-MM-DD')}}</h3>
+        <!-- 组件懒加载 -->
+        <lazy-component>
+          <!-- 单一日志信息开始 -->
+          <div v-for="(diary,index) of diarys" :key="index" >
+            <router-link :to="`/mylv/${diary.jid}`" >
+              <div class="articleItem">
+                <!-- 日志标题开始 -->
+                <div class="articleItem-header">
+                  <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
+                  <div class="articleMsg">
+                    <div>
+                      <span>{{diary.nickname}}</span>
+                      <!-- <h3 class="articleItem-time">{{this.moment.unix(diary.log_time).format('Y年MM月DD日')}}</h3> -->
+                      <h3 class="articleItem-time">{{diary.log_time/1000 | datefmt('YYYY-MM-DD')}}</h3>
+                    </div>
+                    <h1>{{diary.journal_city}}</h1>
                   </div>
-                  <h1>{{diary.journal_city}}</h1>
                 </div>
-              </div>
-              <!-- 日志标题结束 -->
-              <!-- 日志正文开始 -->
-              <div class="articleDes">{{diary.content}}</div>
-              <!-- 日志正文结束 -->
-              <!-- 日志图片开始 -->
-              <van-swipe-cell class="journalImg">
-                                                                              <!-- 传入图片数组 -->
-                <div v-for="(item,index) of diary.pic" :key="index" @click.prevent="preview(diary.pic,index)">
-                  <van-image
-                    width="7.8rem"
-                    height="7.8rem"
-                    fit="cover"
-                    :src="require(`../assets/journal-pic/${item.picture_pic}`)"
-                  >
-                    <template v-slot:loading>
-                      <van-loading type="spinner" size="20" />
-                    </template>
-                  </van-image>
+                <!-- 日志标题结束 -->
+                <!-- 日志正文开始 -->
+                <div class="articleTitle">{{diary.journal_title}}</div>
+                <div class="articleDes">{{diary.content}}</div>
+                <!-- 日志正文结束 -->
+
+                <!-- 日志图片开始 -->
+                <van-swipe-cell class="journalImg" right-width="630" :disabled="true" stop-propagation >
+                                                                                <!-- 传入图片数组 -->
+                  <div v-for="(pic,pindex) of diary.pics" :key="pindex" @click.prevent="preview(diary.pics,pindex)" v-if="pindex < 3" >
+                    <van-image
+                      width="7.7rem"
+                      height="7.7rem"
+                      fit="cover"
+                      lazy-load
+                      :src="`http://127.0.0.1:8888/journal-pic/${pic.picture_pic}`"
+                    >
+                      <template v-slot:loading>
+                        <van-loading type="spinner" size="20" />
+                      </template>
+                    </van-image>
+                  </div>
+                </van-swipe-cell>
+                <!-- 日志图片结束 -->
+
+                <!-- 日志观看留言开始 -->
+                <div class="journalInfor">
+                  <span>观看：{{diary.browse || 0}}</span>
+                  <span>留言：{{diary.msg_number || 0}}</span>
                 </div>
-              </van-swipe-cell>
-              <!-- 日志图片结束 -->
-              <!-- 日志观看留言开始 -->
-              <div class="journalInfor">
-                <span>观看：{{diary.browse || 0}}</span>
-                <span>留言：{{diary.msg_number || 0}}</span>
+                <!-- 日志观看留言结束 -->
+                
               </div>
-              <!-- 日志观看留言结束 -->
-              
-            </div>
-          </router-link>
-        <!-- 单一日志信息结束 -->
-        </div>
+            </router-link>
+          <!-- 单一日志信息结束 -->
+          </div>
+          <van-divider contentPosition="center" >
+            已经没有了
+          </van-divider>
+          <!-- 单一日志信息结束 -->
+        </lazy-component>
       </van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
@@ -116,7 +127,7 @@
 
 
   .home .tabbar{
-    margin: 10px 0;
+    margin: 10px 0 0;
   }
 
   .home .tabbar .van-tabs__line{
@@ -172,6 +183,9 @@
     text-align: right;
     padding-right: 15px;
   }
+  .home .journalImg{
+    margin: 15px auto 16px; 
+  }
   .home .journalImg>div>div+div{
     margin-left: 3px;
   }
@@ -180,10 +194,9 @@
     flex-wrap: nowrap;
     justify-content: start;
     box-sizing: border-box;
-    margin: 15px auto 16px;
   }
   .home .articleDes{
-    height: 65px;
+    /* height: 65px; */
     font-size: 15px;
     overflow: hidden;
     font-weight: 400;
@@ -192,6 +205,22 @@
     letter-spacing: normal;
     color: #444;
     padding: 0 15px;
+    text-indent:2em;
+
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+  }
+  .home .articleTitle{
+    font-size: 18px;
+    overflow: hidden;
+    font-weight: bold;
+    color: #444;
+    padding: 0 15px;
+    margin-bottom: 10px;
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient:vertical;
   }
   .home .journalInfor{
     display: flex;
@@ -216,8 +245,7 @@ export default {
       show_border:false,
       // 默认被选定的顶部选项卡及面板
       active: 0,
-      // 默认被选定的顶部选项卡
-      // selectedTab: "index",
+
       // 存储服务器返回的日志分类
       classify:[],
       // 用于存储服务器返回结果
@@ -227,6 +255,11 @@ export default {
       //总页数
       pagecount:0,
 
+
+      // 日志图片滑动是否禁用
+      // disabled:false,
+
+      // 头像显示
       avatar:true,
       // 是否吸顶
       isFixed:false,
@@ -273,7 +306,21 @@ export default {
         loop:false, //是否开启循环播放
         startPosition:index //图片预览起始位置索引
       });
-    }
+    },
+
+    // 控制滑动
+    // show(index){
+    //   this.$set();
+    //  console.log(index);
+    //   // if (_el.getAttribute('disable') == 'true') {
+    //   //   _el.setAttribute('class', '')
+    //   // } else {
+    //   //   _el.setAttribute('class', 'active')
+    //   // }
+    // }
+
+ 
+
   },
   watch:{
     //监听顶部选项卡发生变化时发送请求以获取对应的日志数据
@@ -289,6 +336,8 @@ export default {
 
       // 监听到变化的值发送 active  获取当前的日志
       this.axios.get('/journal/diary?cid=' + value).then( res => {
+        this.diarys = [];
+        // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
         this.diarys = res.data.result;
       })
       
@@ -300,7 +349,7 @@ export default {
       this.classify = res.data.result;
     })
 
-    // 获取日志
+    // // 获取日志
     this.axios.get('/journal/diary?cid=' + this.active).then( res => {
       this.diarys = res.data.result;
     })

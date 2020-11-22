@@ -91,7 +91,7 @@ j.get('/diary',(req,res)=>{
             pool.query(sql,[value.jid],(err,pic)=>{
                 if (err) throw err;
                 // 拼接每个日志需要的图片
-                value.pic = pic;
+                value.pics = pic;
                 if(i == result.length-1){
                     res.send({ code:1,result: data1 })
                 };
@@ -131,11 +131,10 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
         if (err) throw err;
         // result.affectedRows 大于0 则插入成功
         if (result.affectedRows > 0) {
-            // let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES(?,(SELECT jid FROM dhz_journal WHERE journal_title=?))";
+            let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES(?,(SELECT jid FROM dhz_journal WHERE journal_title=?))";
             //遍历操作,将上传的文件信息依次写入到数据库
-            let sql = 'INSERT upload(picture_pic,journal_id) VALUES(?,(SELECT jid FROM dhz_journal WHERE journal_title=?))';
             files.forEach(file=>{
-                pool.query( sql,[ file.originalname,obj.journal_title ],(err,filename)=>{
+                pool.query( sql,[ file.filename,obj.journal_title ],(err,filename)=>{
                     if (err) throw err;
                 });
             });
