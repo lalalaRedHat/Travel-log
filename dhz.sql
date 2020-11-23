@@ -8,7 +8,7 @@ USE dhz;
 CREATE TABLE dhz_users(
     uid INT PRIMARY KEY AUTO_INCREMENT,             #用户ID
     nickname VARCHAR(32) ,                          #用户昵称
-    username VARCHAR(32) UNIQUE NOT NULL,           #用户名
+    username VARCHAR(32) NOT NULL,           #用户名
     password VARCHAR(32) NOT NULL,                  #密码(MD5加密)
     phone CHAR(11),                                 #手机号
     sex BOOL DEFAULT true,                          #性别  0-女false  1-男true
@@ -38,7 +38,6 @@ CREATE TABLE dhz_journal(
     fabulous INT DEFAULT 0,                         #日志点赞数
     journal_city VARCHAR(32),                       #当前城市
 
-    picture_id INT,                                 #日志图片ID   外键
 
     users_id INT NOT NULL,                          #发布人信息id   外键
                                                     #发布人名字   外键
