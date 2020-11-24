@@ -98,19 +98,6 @@ j.get('/diary',(req,res)=>{
             });
             
         }
-
-        // result.forEach((value, index, array) => {
-        //     // 查询日志附带的图片
-        //     let sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
-        //     pool.query(sql,[value.jid],(err,pic)=>{
-        //         if (err) throw err;
-        //         // 拼接每个日志需要的图片
-        //         value.pic = pic;
-        //         if(index==array.length-1){
-        //             res.send({ code:1,result: data1 })
-        //         };
-        //     });
-        // })
     });
 
 });
@@ -147,16 +134,20 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
     });
 });
 
-j.get('/details/',(req,res)=>{
+j.get('/details',(req,res)=>{
     //获取URL地址栏的参数
     let id = req.query.id;
-    let sql='SELECT (nickname,autograph,vip,avatar,journal_title,content,log_time,browse,msg_number,fabulous,journal_city) FROM dhz_journal INNER JION dhz_users ON uid=users_id WHERE jid=3';
-   pool.query(sql,[id],(error,result)=>{
-   if(error) throw error;
-    res.send({message:'查询成功',code:1,
-art:result[0]})
-    });
-console.log(id);
+    console.log(id);
+    let sql='SELECT journal_title,content,log_time,browse,msg_number,fabulous,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE jid=?';
+    pool.query(sql,[id],(error,result)=>{
+        if(error) throw error;
+        console.log(result);
+        res.send({
+            message:'查询成功',
+            code:1,
+            art:result[0]
+        })
+    });
 });
 
 

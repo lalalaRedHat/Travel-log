@@ -33,7 +33,8 @@
         v-model="value1"
         >
         <template #button>
-          <van-button size="small" type="warning">发送验证码</van-button>
+          <van-button size="small" type="warning" >发送验证码</van-button>
+          <!-- <van-button v-if="cutDownTime" size="small" type="primary">{{cutDownTime}}s后再试</van-button> -->
         </template>
     </van-field>
 
@@ -135,8 +136,10 @@
             //      this.$router.push("/")
             //   }
               if(this.d){
-                    
-              this.axios.post('/user/register',"&phone="+this.phone +'&password=' + this.password).then( res => {
+                if(this.nickname==""){
+                  this.nickname = this.phone;
+                }  
+                this.axios.post('/user/register',"&phone="+this.phone +'&password=' + this.password+"&nickname="+this.nickname).then( res => {
                 // this.phone = res.data.result;
                 // console.log(res.data.userInfo);
                 this.$router.push("/")
@@ -183,7 +186,8 @@
           // 检测用户手机号
           checkPhone() {
             let phone = this.phone;
-            let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
+            let phoneReg =/^[1][3,4,5,7,8][0-9]{9}$/g; 
+            
             if (phoneReg.test(phone)) {
               // 修改手机号的状态
               this.iserror = false;

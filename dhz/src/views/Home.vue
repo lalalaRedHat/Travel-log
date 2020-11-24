@@ -3,9 +3,7 @@
     <!-- 导航栏 -->
     <van-nav-bar title="搭伙族" left-arrow fixed :border="show_border" :style="{backgroundColor:backgroundColor}">
       <template #left>
-        <router-link to="/personage">
-          <van-icon name="user-circle-o" :color="nva_icon_color" size="24"  /> 
-        </router-link>
+        <van-icon name="user-circle-o" :color="nva_icon_color" size="24" @click="myInfo" /> 
       </template>
       <template #right>
         <router-link to="/keepdiary">
@@ -318,8 +316,19 @@ export default {
     //   //   _el.setAttribute('class', 'active')
     //   // }
     // }
+    
+    // 个人资料登录判定 
+    myInfo(){
+      let isOnlogin = this.$store.state.isOnlogin;
+      if ( isOnlogin == 1) {
+        this.$router.push("/personage");
+      } else {
+        this.$toast.fail('请登录后查看');
+        this.$router.push("/login");
+      }
+    }
 
- 
+
 
   },
   watch:{
