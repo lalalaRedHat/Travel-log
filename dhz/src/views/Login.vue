@@ -135,7 +135,7 @@ export default {
    margin-top: 4px;
 }
 .login {
-  background: url(/img/dl.287db947.png) no-repeat 100%;
+  background: url(../assets/img/dl.png) no-repeat 100%;
   background-size: 120%;
   height: 100%;
 }
