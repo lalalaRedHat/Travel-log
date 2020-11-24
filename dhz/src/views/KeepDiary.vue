@@ -207,64 +207,76 @@ export default {
     },
     // 发布日志
     release(){
-      // 获取当前时间
-      let current_time = this.moment().format('x');
+      // 获取登录状态
+      let isOnlogin = this.$store.state.isOnlogin;
+      // 如果登录状态为1则为登录
+      if ( isOnlogin == 1) {
+        // 获取当前时间
+        let current_time = this.moment().format('x');
 
 
-      // 声明一个变量保存对应的分类id
-      let classify_id;
-      // 保存获取的分类数组
-      let classify_arr = this.$store.state.classify;
-      // 循环分类数组
-      classify_arr.forEach((value, index, array) => {
-        // 如果选中文章分类名等于分类数组里的名
-        if ( this.classify ==  value.classify) {
-          // 就将当前id赋值给classify_id
-          classify_id = value.cid
+        // 声明一个变量保存对应的分类id
+        let classify_id;
+        // 保存获取的分类数组
+        let classify_arr = this.$store.state.classify;
+        // 循环分类数组
+        classify_arr.forEach((value, index, array) => {
+          // 如果选中文章分类名等于分类数组里的名
+          if ( this.classify ==  value.classify) {
+            // 就将当前id赋值给classify_id
+            classify_id = value.cid
+          }
+        })
+
+
+        // 当什么都没没写时不允许提交
+        if ( !this.article_tit || !this.article || !this.current_city || !this.classify ) {
+          // 没写东西没有动作
+          this.$toast.fail('请填写日志内容');
+          return
+
+        } else { // 写了东西
+
+            // 获取保存的formdata
+            let formData = this.data;
+    
+            // 在表单数据对象中添加数据
+            // 日志标题
+            formData.set("journal_title",this.article_tit);
+            // 日志正文
+            formData.set("content",this.article);
+            // 发布时间
+            formData.set("log_time",current_time);
+            // 当前城市
+            formData.set("journal_city",this.current_city);
+            // 当前分类
+            formData.set("journal_classify",classify_id);
+            // 用户id
+            formData.set("users_id",1);
+
+            console.log(formData);
+            // 提交表单
+            this.axios.post('/journal/diaryadd',formData).then( res => {
+              // 获取到code为1跳转到首页
+              if (res.data.code == 1) {
+                this.$notify({
+                  type: 'success',
+                  message: '发布成功' 
+                });
+                this.$router.push('/');
+              }
+
+            })
         }
-      })
 
 
-      // 当什么都没没写时不允许提交
-      if ( !this.article_tit || !this.article || !this.current_city || !this.classify ) {
-        // 没写东西没有动作
-        this.$toast.fail('请填写日志内容');
-        return
-
-      } else { // 写了东西
-
-          // 获取保存的formdata
-          let formData = this.data;
-  
-          // 在表单数据对象中添加数据
-          // 日志标题
-          formData.set("journal_title",this.article_tit);
-          // 日志正文
-          formData.set("content",this.article);
-          // 发布时间
-          formData.set("log_time",current_time);
-          // 当前城市
-          formData.set("journal_city",this.current_city);
-          // 当前分类
-          formData.set("journal_classify",classify_id);
-          // 用户id
-          formData.set("users_id",1);
-
-          console.log(formData);
-          // 提交表单
-          this.axios.post('/journal/diaryadd',formData).then( res => {
-            // 获取到code为1跳转到首页
-            if (res.data.code == 1) {
-              this.$notify({
-                type: 'success',
-                message: '发布成功' 
-              });
-              this.$router.push('/');
-            }
-
-          })
+      } else { // 为未登录
+        this.$toast.fail('请登录后发布');
       }
+
     }
+
+
   },
   mounted(){
     // 分类选择器获取数据数组

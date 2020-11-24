@@ -31,21 +31,24 @@
             <van-button size="small" type="primary" id="btn1">忘记密码</van-button>
           </template>
         </van-field>
-        <router-link to="/Register" class="regist">创建新用户</router-link>
-        <!-- 提交按钮 -->
-        <van-button round block type="info" native-type="submit" class="btn" @click="handle">
-          确定登录
-        </van-button>
     </div>
+    <div class="regist">
+      <router-link to="/Register" >创建新用户</router-link>
+    </div>
+
+    <!-- 提交按钮 -->
+    <van-button round block type="info" native-type="submit" class="btn" @click="handle">
+      确定登录
+    </van-button>
 
 
     <!-- 第三方引入 -->
     <div class="shejiao">
       <router-link to="" class="qq">
-        <van-image :src="require('../assets/img/qq.png')" /> QQ登录
+        <van-image :src="require('../assets/img/qq.png')" width="25" /> QQ登录
       </router-link>
       <router-link to="" class="wx">
-        微信登录<van-image :src="require('../assets/img/wx.png')" />
+        微信登录<van-image :src="require('../assets/img/wx.png')" width="25" />
       </router-link>
     </div>
   </div>
@@ -118,23 +121,23 @@ export default {
     },
   },
 };
-// 背景图片的样式
 </script>
-<style scope>
+
+<!--背景图片的样式-->
+<style>
  .login .van-icon-friends-o::before {
    color: #fff;
+   font-size: 24px;
  }
  .login .van-icon-goods-collect-o::before {
-    color: #fff;
+   color: #fff;
+   font-size: 24px;
+   margin-top: 4px;
 }
 .login {
-  background: url(../assets/img/dl.png);
-  width: 100%;
-  /* height: 800px;
-  margin-top: 200px; */
-  position: relative;
-  background-size: 100%;
-  padding-bottom: 40px;
+  background: url(/img/dl.287db947.png) no-repeat 100%;
+  background-size: 120%;
+  height: 100%;
 }
 .login .qc{
   width: 100%;
@@ -147,6 +150,22 @@ export default {
 .login .d1,.login .d2{
   background: transparent;
 }
+.login .van-cell::after{
+  border: 0;
+}
+.login .d1,.login .d2{
+    border-bottom: 1px solid #fff;
+    padding: 10px 0;
+    width: 85%;
+    margin: 0 auto;
+}
+.login input{
+  color: #fff;
+}
+.login input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #fff;
+  font-size: 14px;
+}
 /* 忘记密码样式 */
 .login #btn1 {
   background-color: #ccc;
@@ -157,44 +176,44 @@ export default {
   /* background: transparent; */
 }
 /* 注册的样式 */
-.login .regist {
+.login .regist a{
   color: #fff;
-font-weight: 500;
-  margin-left: 280px;
+  font-size: 14px;
+  font-weight: lighter;
+  margin: 5% 7.5% 0;
+  float: right;
+}
+.login .regist{
+  height: 5%;
+  clear: both;
 }
 /* 登录的样式 */
 .login .btn {
-  border-radius: 20px;
-  background-color: #ccc;
   background: transparent;
-  border: 2px solid #ccc;
-  
-  margin: 0 auto;
-  
-  width: 90%;
-  margin-top: 15px;
+  border: 2px solid #fff;
+  width: 85%;
+  margin: 5% auto 0;
 }
-
-/* 整体页面的样式 */
-/* .login{
-    margin-top: 200px;
-    height: 300px;
-    position: relative;
-  } */
 /* 微信QQ样式 */
 .login .shejiao {
   justify-content: space-between;
   display: flex;
-  margin-top: 150px;
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
 }
 .login .qq,
 .login .wx {
-  color: #ccc;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
 }
 .login .qq {
-  margin-left: 10px;
+  margin-left: 7.5%;
 }
 .login .wx {
-  margin-right: 10px;
+  margin-right: 7.5%;
 }
+
 </style>
