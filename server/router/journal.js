@@ -159,5 +159,25 @@ art:result[0]})
 console.log(id);
 });
 
+
+
+
+//个人资料
+//查询所有用户
+j.get('/individual',(req,res)=>{
+    //获取URL地址栏的参数
+  let phone =  req.query.phone;
+  console.log(phone);
+  //SQL查询
+//   let sql ='SELECT phone FROM dhz_users WHERE phone=?';
+  let sql ='SELECT uid,nickname,phone,sex,birthday,city,vip,autograph FROM dhz_users WHERE phone=?';
+  // 执行SQL查询
+  pool.query(sql,[phone],(error,results)=>{
+    if(error) throw error;
+    res.send({message:'查询成功',code:1,articleInfo:results[0]});
+  });
+});
+
+
 //导出路由
 module.exports=j;
