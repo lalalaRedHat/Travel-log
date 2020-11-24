@@ -23,6 +23,7 @@
     <!-- 标签栏开始 -->
     <van-tabs v-model="active" swipeable lazy-render class="tabbar" sticky offset-top="46" animated>
       <van-tab :title="item.classify" v-for="(item,index) of classify" :key="index" :name="index+1" :offset-top="36">
+
         <!-- 组件懒加载 -->
         <lazy-component>
           <!-- 单一日志信息开始 -->
@@ -42,6 +43,7 @@
                   </div>
                 </div>
                 <!-- 日志标题结束 -->
+                
                 <!-- 日志正文开始 -->
                 <div class="articleTitle">{{diary.journal_title}}</div>
                 <div class="articleDes">{{diary.content}}</div>
@@ -72,16 +74,19 @@
                   <span>留言：{{diary.msg_number || 0}}</span>
                 </div>
                 <!-- 日志观看留言结束 -->
-                
               </div>
             </router-link>
           <!-- 单一日志信息结束 -->
           </div>
-          <van-divider contentPosition="center" >
-            已经没有了
+          <!-- 分割线 -->
+          <van-divider dashed
+            :style="{ color: '#ccc', borderColor: '#ccc', padding: '0 16px' }"
+          >
+            已经到底了
           </van-divider>
           <!-- 单一日志信息结束 -->
         </lazy-component>
+
       </van-tab>
     </van-tabs>
     <!-- 标签栏结束 -->
@@ -306,17 +311,20 @@ export default {
       });
     },
 
-    // 控制滑动
-    // show(index){
-    //   this.$set();
-    //  console.log(index);
-    //   // if (_el.getAttribute('disable') == 'true') {
-    //   //   _el.setAttribute('class', '')
-    //   // } else {
-    //   //   _el.setAttribute('class', 'active')
-    //   // }
-    // }
-    
+
+    // 自定义函数
+    loaddata(value) {
+      // 异步更新数据
+      // 监听到变化的值发送 active  获取当前的日志
+      this.axios.get('/journal/diary?cid=' + value).then( res => {
+        //获取服务器返回的数据 -- 数组
+        this.diarys = res.data.result;
+        console.log(res.data);
+
+      })
+    },
+
+
     // 个人资料登录判定 
     myInfo(){
       let isOnlogin = this.$store.state.isOnlogin;
@@ -342,13 +350,15 @@ export default {
       //设置页码变量值为1(因为刚刚切换到任何一个选项卡时都是显示该类别下的第1页的数据)
       this.page = 1;
 
+      // 调用获取日志的函数
+      this.loaddata(value);
 
       // 监听到变化的值发送 active  获取当前的日志
-      this.axios.get('/journal/diary?cid=' + value).then( res => {
-        this.diarys = [];
-        // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
-        this.diarys = res.data.result;
-      })
+      // this.axios.get('/journal/diary?cid=' + value +"&page=" + page).then( res => {
+      //   this.diarys = [];
+      //   // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
+      //   this.diarys = res.data.result;
+      // })
       
     },
   },
@@ -358,11 +368,14 @@ export default {
       this.classify = res.data.result;
     })
 
-    // // 获取日志
-    this.axios.get('/journal/diary?cid=' + this.active).then( res => {
-      this.diarys = res.data.result;
-    })
+    // 获取日志
+    // 调用获取日志的函数
+    this.loaddata(this.active);
+    // this.axios.get('/journal/diary?cid=' + this.active +"&page=" + page).then( res => {
+    //   this.diarys = res.data.result;
+    // })
 
+    //调用store里的获取分类
     this.$store.dispatch("obtain_classify");
 
     window.addEventListener('scroll', this.handleScroll)

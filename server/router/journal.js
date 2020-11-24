@@ -68,14 +68,8 @@ j.get('/classify',(req,res)=>{
 j.get('/diary',(req,res)=>{
     // 获取地址栏的cid参数,该参数表示的分类的ID
     let cid = req.query.cid;
-    // 获取地址栏中的page参数,该参数表示页码
-    let page = parseInt(req.query.page);
-    //存储分页显示的记录数量
-    let pagesize = 10;
-    //声明总页数变量
-    let pagecount;
     
-    // console.log(cid);
+    console.log(cid);
     //SQL查询日志全部信息
     let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=? ORDER BY jid DESC';
     // 执行SQL查询
@@ -99,6 +93,46 @@ j.get('/diary',(req,res)=>{
             
         }
     });
+
+    // vant list 滚动加载好像有bug
+    // 根据当前分类查询当前总共有多少
+    // let sql = "SELECT COUNT(jid) AS count FROM dhz_journal WHERE journal_classify=?";
+    // pool.query(sql, [cid], (err, result) => {
+    //     if (err) throw err;
+    //     //获取总记录数
+    //     let rowcount = result[0].count;
+    //   console.log(result[0].count);
+    //     //计算总页数,标准的公式 Math.ceil(总记录数/每页显示的条数)
+    //     pagecount = Math.ceil(rowcount / pagesize);
+    //   console.log(pagecount);
+    //     // 根据page参数值并结合SELECT...LIMIT子句的标准计算公式来计算offset参数值
+    //     let offset = (page - 1) * pagesize;
+
+    //     // 以当前的cid分类为条件进行文章的查找操作
+    //     sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=? ORDER BY jid DESC LIMIT ?,?';
+    //     // 执行SQL查询
+    //     pool.query(sql,[ cid, offset, pagesize ],(err,result)=>{
+    //         if (err) throw err;
+    //         let data1 = result;
+
+    //         for (let i = 0; i < result.length; i++) {
+    //             // 获取的每个对象
+    //             let value = result[i];
+    //             // 查询日志附带的图片
+    //             sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
+    //             pool.query(sql,[value.jid],(err,pic)=>{
+    //                 if (err) throw err;
+    //                 // 拼接每个日志需要的图片
+    //                 value.pics = pic;
+    //                 if(i == result.length-1){
+    //                     res.send({ code:1,result: data1, pagecount: pagecount })
+    //                 };
+    //             });
+                
+    //         }
+    //     });
+
+    // });
 
 });
 
@@ -134,6 +168,7 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
     });
 });
 
+// 日志详情
 j.get('/details',(req,res)=>{
     //获取URL地址栏的参数
     let id = req.query.id;
