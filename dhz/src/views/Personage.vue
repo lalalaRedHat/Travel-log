@@ -29,29 +29,27 @@
                 :src="require('../assets/common/timg.jpg')"
             />
             <!-- 昵称 -->
-            <span class="pname">haochen</span>
+            <div>
+                <span class="pname">{{this.art.nickname}}</span>
+            </div>
+            
             <!-- 等级 -->
             <div class="grade">
-                <span>等级3</span> 
+                <span>等级{{this.art.vip}}</span> 
             </div>
         </div>
 
         <van-tabs v-model="activeName">
             <van-tab title="个人资料" name="a">
                  <div>
-                    <van-cell title="搭伙号" is-link value="011" />
-                    <van-cell title="昵称"   is-link value="haochen" />
-                    <van-cell title="联系电话" is-link value="189****8780" />
-                    <van-cell title="性别" is-link value="男" />
-                    <van-cell title="生日" is-link value="1997" />
-                    <van-cell title="所在地" is-link value="山东" />
-
-
-                    <van-cell title="会员等级" is-link value="LV1" to="Vip"/>
-
-                    
-                    <van-cell title="实名认证" is-link value="未完成" />
-                    <van-cell title="个性标签" is-link value="这个人很懒" to="Tag"/>
+                    <van-cell title="搭伙号" is-link :value="this.art.uid" />
+                    <van-cell title="昵称"   is-link :value="this.art.nickname" />
+                    <van-cell title="联系电话" is-link :value="this.art.phone" />
+                    <van-cell title="性别" is-link :value="this.art.sex" />
+                    <van-cell title="生日" is-link :value="this.art.birthday" />
+                    <van-cell title="所在地" is-link :value="this.art.city" />
+                    <van-cell title="会员等级" is-link :value="this.art.vip" to="Vip"/>
+                    <van-cell title="个性标签" is-link :value="this.art.autograph" to="Tag"/>
                 </div>
             </van-tab>
         <div class="img">
@@ -94,6 +92,14 @@
                     />
             </van-tab>
         </div>
+            <van-tab title="个人日志" name="c">
+                    
+
+                
+
+
+
+            </van-tab>
         </van-tabs>
 
                
@@ -120,8 +126,10 @@
       text-align: center;
     }
     .background .pname{
-        font-size: 2rem;
+        width: 200px;
+        font-size: 1rem;
         color:rgba(27, 29, 27, 0.904);
+        padding: 150px  10px;
     }
     .background .man{
         margin: -30px 310px;
@@ -143,8 +151,20 @@ export default {
       show_border:false,
        fileList: [],
        // 是否吸顶
-      isFixed:true
+      isFixed:true,
+      art:{},
+      aa:''
     }
+  },
+  mounted(){
+      let phone = this.$route.params.phone;
+     //获取服务器传的手机号的值
+   this.axios.get('/journal/individual?phone=18753108178').then(res=>{
+     this.art=res.data.articleInfo;
+    // console.log(res.data.articleInfo);
+    // console.log(this.art);
+    })
+    this.aa=this.art.phone;
   },
    methods:{
     onClickLeft() {
