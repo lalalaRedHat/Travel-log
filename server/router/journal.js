@@ -9,6 +9,9 @@ const uuid = require('uuid');
 // 引入fs模块
 const fs = require('fs');
 
+var http = require('http');
+var url = require("url");
+var querystring = require("querystring");
 
 /*********** 文件上传配置 ***********/
 // 定义存储规则
@@ -66,17 +69,45 @@ j.get('/classify',(req,res)=>{
 
 // 获取日志路由
 j.get('/diary',(req,res)=>{
-    // 获取地址栏的cid参数,该参数表示的分类的ID
+    // 获取cid参数,该参数表示的分类的ID
     let cid = req.query.cid;
     
     console.log(cid);
+
+    if ( cid == 1 ) {
+      //SQL查询全部信息
+      let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid ORDER BY jid DESC';
+      // 执行SQL查询
+      pool.query(sql,(err,result)=>{
+          if (err) throw err;
+          console.log(result)
+          let data1 = result;
+          // 循环每个日志查询对应的图片
+          // for (let i = 0; i < result.length; i++) {
+          //     // 获取的每个对象
+          //     let value = result[i];
+          //     // 查询日志附带的图片
+          //     let sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
+          //     pool.query(sql,[value.jid],(err,pic)=>{
+          //         if (err) throw err;
+          //         // 拼接每个日志需要的图片
+          //         value.pics = pic;
+          //         if(i == result.length-1){
+          //             res.send({ code:1,result: data1 })
+          //         };
+          //     });
+              
+          // }
+      });      
+    }
     //SQL查询日志全部信息
     let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=? ORDER BY jid DESC';
     // 执行SQL查询
     pool.query(sql,[cid],(err,result)=>{
         if (err) throw err;
+        // console.log(result)
         let data1 = result;
-
+        // 循环每个日志查询对应的图片
         for (let i = 0; i < result.length; i++) {
             // 获取的每个对象
             let value = result[i];
@@ -143,19 +174,19 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
     let files = req.files;
     //获取发送的文本数据
     let obj = req.body;
-    console.log(files);
-    console.log(obj);
+    // console.log(files);
+    // console.log(req.body.journal_classify);
 
     //声明一个变量保存插入文章数据
-    let sql = "INSERT INTO dhz_journal (journal_title,content,log_time,journal_city,users_id) VALUES(?,?,?,?,?)";
-    pool.query( sql,[obj.journal_title,obj.content,obj.log_time,obj.journal_city,obj.users_id],(err,result) => {
+    let sql = "INSERT INTO dhz_journal (journal_title,content,log_time,journal_city,users_id,journal_classify) VALUES (?,?,?,?,(SELECT uid FROM dhz_users WHERE phone=?),?)";
+    pool.query( sql,[obj.journal_title,obj.content,obj.log_time,obj.journal_city,obj.phone,obj.journal_classify],(err,result) => {
         if (err) throw err;
         // result.affectedRows 大于0 则插入成功
         if (result.affectedRows > 0) {
-            let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES(?,(SELECT jid FROM dhz_journal WHERE journal_title=?))";
+            let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES(?,(SELECT uid FROM dhz_users WHERE phone=?))";
             //遍历操作,将上传的文件信息依次写入到数据库
             files.forEach(file=>{
-                pool.query( sql,[ file.filename,obj.journal_title ],(err,filename)=>{
+                pool.query( sql,[ file.filename,obj.phone ],(err,filename)=>{
                     if (err) throw err;
                 });
             });
@@ -168,20 +199,28 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
     });
 });
 
+
+
 // 日志详情
 j.get('/details',(req,res)=>{
     //获取URL地址栏的参数
     let id = req.query.id;
-    console.log(id);
+    // console.log(id);
     let sql='SELECT journal_title,content,log_time,browse,msg_number,fabulous,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE jid=?';
     pool.query(sql,[id],(error,result)=>{
         if(error) throw error;
-        console.log(result);
-        res.send({
-            message:'查询成功',
-            code:1,
-            art:result[0]
-        })
+        // 查询日志附带的图片
+        sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
+        pool.query(sql,[id],(err,pic)=>{
+            if (err) throw err;
+            // 拼接每个日志需要的图片
+            result[0].pics = pic;
+            res.send({
+              message:'查询成功',
+              code:1,
+              art:result[0]
+            })
+        });
     });
 });
 

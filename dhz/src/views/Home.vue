@@ -315,8 +315,10 @@ export default {
     // 自定义函数
     loaddata(value) {
       // 异步更新数据
+      console.log(value);
       // 监听到变化的值发送 active  获取当前的日志
       this.axios.get('/journal/diary?cid=' + value).then( res => {
+        
         //获取服务器返回的数据 -- 数组
         this.diarys = res.data.result;
         console.log(res.data);
@@ -343,26 +345,41 @@ export default {
     //监听顶部选项卡发生变化时发送请求以获取对应的日志数据
     active(value) {
       console.log(value);
-      //清空之前保存的文章数据
-      this.articles = [];
+
 
 
       //设置页码变量值为1(因为刚刚切换到任何一个选项卡时都是显示该类别下的第1页的数据)
       this.page = 1;
 
       // 调用获取日志的函数
-      this.loaddata(value);
+      // this.loaddata(value);
 
       // 监听到变化的值发送 active  获取当前的日志
-      // this.axios.get('/journal/diary?cid=' + value +"&page=" + page).then( res => {
-      //   this.diarys = [];
-      //   // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
-      //   this.diarys = res.data.result;
-      // })
+      // 如果是1查询全部的日志
+      if ( value == 1) {
+        this.diarys = [];
+        // 调用获取日志的函数
+        this.loaddata(value)
+        // this.axios.get('/journal/diary?cid=' + value).then( res => {
+        //   this.diarys = [];
+        //   // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
+        //   this.diarys = res.data.result;
+        // })
+      } else { // 否则查询对应的的日志
+
+        //清空之前保存的文章数据
+        this.diarys = [];
+        this.axios.get('/journal/diary?cid=' + value).then( res => {
+          this.diarys = [];
+          // 获取的日志数组遍历想判断图片大于3个启用滑动，小与禁用
+          this.diarys = res.data.result;
+        })
+      }
       
     },
   },
   mounted() {
+    console.log(window.location);
     // 获取日志的分类
     this.axios.get('/journal/classify').then( res => {
       this.classify = res.data.result;
@@ -370,7 +387,12 @@ export default {
 
     // 获取日志
     // 调用获取日志的函数
-    this.loaddata(this.active);
+    if (this.active == 1) {
+      this.loaddata(1);
+    } else {
+      this.loaddata(this.active);
+    }
+    
     // this.axios.get('/journal/diary?cid=' + this.active +"&page=" + page).then( res => {
     //   this.diarys = res.data.result;
     // })

@@ -120,15 +120,15 @@
 
 <script>
 const citys = {
-    北京市: [],
-    天津市: [],
+    北京市: [''],
+    天津市: [''],
     河北省: ['石家庄市','唐山市','秦皇岛市','邯郸市','邢台市','保定市','张家口市','承德市','沧州市','廊坊市','衡水市','雄安新区'],
     山西省: ['太原市','大同市','阳泉市','长治市','晋城市','朔州市','晋中市','运城市','忻州市','临汾市','吕梁市'],
     内蒙古自治区: ['呼和浩特市','包头市','乌海市','赤峰市','通辽市','鄂尔多斯市','呼伦贝尔市','巴彦淖尔市','乌兰察布市','兴安盟','锡林郭勒盟','阿拉善盟'],
     辽宁省: ['沈阳市','大连市','鞍山市','抚顺市','本溪市','丹东市','锦州市','营口市','阜新市','辽阳市','盘锦市','铁岭市','朝阳市','葫芦岛市'],
     吉林省: ['长春市','吉林市','四平市','辽源市','通化市','白山市','松原市','白城市','长白山管委会','延边朝鲜族自治州'],
     黑龙江省: ['哈尔滨市','齐齐哈尔市','鸡西市','鹤岗市','双鸭山市','大庆市','伊春市','佳木斯市','七台河市','牡丹江市','黑河市','绥化市','大兴安岭地区'],
-    上海市: [],
+    上海市: [''],
     江苏省: ['南京市','无锡市','徐州市','常州市','苏州市','南通市','连云港市','淮安市','盐城市','扬州市','镇江市','泰州市','宿迁市'],
     浙江省: ['杭州市','宁波市','温州市','嘉兴市','湖州市','绍兴市','金华市','衢州市','舟山市','台州市','丽水市'],
     安徽省: ['合肥市','芜湖市','蚌埠市','淮南市','马鞍山市','淮北市','铜陵市','安庆市','黄山市','滁州市','阜阳市','宿州市','六安市','亳州市','池州市','宣城市'],
@@ -141,7 +141,7 @@ const citys = {
     广东省: ['广州市','韶关市','深圳市','珠海市','汕头市','佛山市','江门市','湛江市','茂名市','肇庆市','惠州市','梅州市','汕尾市','河源市','阳江市','清远市','东莞市','中山市','潮州市','揭阳市','云浮市'],
     广西壮族自治区: ['南宁市','柳州市','桂林市','梧州市','北海市','防城港市','钦州市','贵港市','玉林市','百色市','贺州市','河池市','来宾市','崇左市'],
     海南省: ['海口市','三亚市','三沙市','儋州市','省直辖县'],
-    重庆市: [],
+    重庆市: [''],
     四川省: ['成都市','自贡市','攀枝花市','泸州市','德阳市','绵阳市','广元市','遂宁市','内江市','乐山市','南充市','眉山市','宜宾市','广安市','达州市','雅安市','巴中市','资阳市','阿坝藏族羌族自治州','甘孜藏族自治州','凉山彝族自治州'],
     贵州省: ['贵阳市','六盘水市','遵义市','安顺市','毕节市','铜仁市','黔西南布依族苗族自治州','黔东南苗族侗族自治州','黔南布依族苗族自治州'],
     云南省: ['昆明市','曲靖市','玉溪市','保山市','昭通市','丽江市','普洱市','临沧市','楚雄彝族自治州','红河哈尼族彝族自治州','文山壮族苗族自治州','西双版纳傣族自治州','大理白族自治州','德宏傣族景颇族自治州','怒江傈僳族自治州','迪庆藏族自治州'],
@@ -173,20 +173,27 @@ export default {
           className: 'column1',
         },
         {
-          values: citys['浙江'],
+          values: citys['北京市'],
           className: 'column2',
           defaultIndex: 2,
         },
       ],
       showcity: false,
-
+      // 分类数组store
+      classifys:[],
 
       // 文章分类
       classify:"",
       diaryclassify:[],
       showclassify: false,
       // 是否上传
-      data:{}
+      data:{
+        journal_pic:[]
+      },
+      formdata: new FormData(),
+
+      // 当前用户
+      userPhone:this.$store.state.userPhone
     }
   },
   methods: {
@@ -194,14 +201,15 @@ export default {
     afterRead(file) {
       console.log(file);
       // 创建表单数据对象
-      let formData = new FormData();
+      //let formData = new FormData();
       // 如果传的参的content属性存在则为对象
       if (file.hasOwnProperty('content')) {
 
         // 直接保存到data中
-        formData.append('journal_pic',file.file);
+        //this.data.journal_pic.push(file.file);
+        this.formdata.append("journal_pic",file.file)
         // 保存在变量data中
-        this.data = formData;
+        //this.data = formData;
 
       } else {//否则为数组
 
@@ -210,49 +218,53 @@ export default {
           //获取到File对象
           let files = file[i].file;
           // console.log(file[i].file);
-          formData.append('journal_pic',files);
+         // this.data.journal_pic.push(files);
+          this.formdata.append("journal_pic",files)
         }
         // 保存在变量data中
-        this.data = formData;
-
+        //this.data = formData;
       }
     },
-
     
     // 城市选择
     oncity(value) {
-      this.current_city = value[0] + value[1];
-      this.showcity = false;
+      console.log(value);
+      if (value[1] == undefined || value[1] == "") {
+        value[1] = "";
+        this.current_city = value[0] + value[1];
+        this.showcity = false;
+      }else{
+        this.current_city = value[0] + value[1];
+        this.showcity = false;
+      }
     },
     // 切换省
     onChange(picker, values) {
       picker.setColumnValues(1, citys[values[0]]);
     },
-
-
-
-
     // 分类的选择器
     onclassify(value){
       this.classify = value;
       this.showclassify = false;
     },
+
     // 发布日志
     release(){
+      console.log( this.userPhone );
+      // 获取用户
+      let phone = this.userPhone.phone
       // 获取登录状态
       let isOnlogin = this.$store.state.isOnlogin;
       // 如果登录状态为1则为登录
-      if ( isOnlogin == 1) {
+      if ( 1 == 1) {
         // 获取当前时间
         let current_time = this.moment().format('x');
 
 
         // 声明一个变量保存对应的分类id
         let classify_id;
-        // 保存获取的分类数组
-        let classify_arr = this.$store.state.classify;
         // 循环分类数组
-        classify_arr.forEach((value, index, array) => {
+        this.classifys.forEach((value, index, array) => {
           // 如果选中文章分类名等于分类数组里的名
           if ( this.classify ==  value.classify) {
             // 就将当前id赋值给classify_id
@@ -264,58 +276,77 @@ export default {
         // 当什么都没没写时不允许提交
         if ( !this.article_tit || !this.article || !this.current_city || !this.classify ) {
           // 没写东西没有动作
-          this.$toast.fail('请填写日志内容');
-          return
+          this.$toast.fail('请完善日志信息');
+          // return
 
         } else { // 写了东西
 
-            // 获取保存的formdata
-            let formData = this.data;
-    
-            // 在表单数据对象中添加数据
             // 日志标题
-            formData.set("journal_title",this.article_tit);
+            this.formdata.set("journal_title",this.article_tit);
             // 日志正文
-            formData.set("content",this.article);
+            this.formdata.set("content",this.article);
             // 发布时间
-            formData.set("log_time",current_time);
+            this.formdata.set("log_time",current_time);
             // 当前城市
-            formData.set("journal_city",this.current_city);
+            this.formdata.set("journal_city",this.current_city);
             // 当前分类
-            formData.set("journal_classify",classify_id);
-            // 用户id
-            formData.set("users_id",1);
+            this.formdata.set("journal_classify",classify_id);
+            // 用户
+            this.formdata.set("phone",phone);
+            this.addformdata(  this.formdata );
 
-            console.log(formData);
-            // 提交表单
-            this.axios.post('/journal/diaryadd',formData).then( res => {
-              // 获取到code为1跳转到首页
-              if (res.data.code == 1) {
-                this.$notify({
-                  type: 'success',
-                  message: '发布成功' 
-                });
-                this.$router.push('/');
-              }
-
-            })
+            //formdata.set("data",this.data)         
+            //   // 在表单数据对象中添加数据
+            //   // 日志标题
+            //   formData.set("journal_title",this.article_tit);
+            //   // 日志正文
+            //   formData.set("content",this.article);
+            //   // 发布时间
+            //   formData.set("log_time",current_time);
+            //   // 当前城市
+            //   formData.set("journal_city",this.current_city);
+            //   // 当前分类
+            //   formData.set("journal_classify",classify_id);
+            //   // 用户id
+            //   formData.set("phone",phone);
+  
+            //   // 提交表单
+            //   this.addformdata( formData );
+            // };
         }
-
 
       } else { // 为未登录
         this.$toast.fail('请登录后发布');
       }
 
-    }
+    },
 
+    // 提交表单
+    addformdata( value ){
+      // 提交表单
+      this.axios.post('/journal/diaryadd',value).then( res => {
+        // 获取到code为1跳转到首页
+        if (res.data.code == 1) {
+          this.$notify({
+            type: 'success',
+            message: '发布成功' 
+          });
+          this.$router.push('/');
+        }
+
+      })
+    }
 
   },
   mounted(){
     // 分类选择器获取数据数组
-    let classifys = this.$store.state.classify;
-    classifys.forEach((value, index, array) => {
+    this.classifys = this.$store.state.classify;
+    this.classifys.forEach((value, index, array) => {
       this.diaryclassify.push(value.classify)
     })
+
+    //调用store里的获取分类
+    this.$store.dispatch("obtain_classify");
 
   }
 }
