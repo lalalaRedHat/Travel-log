@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Update from '../views/Update.vue'
 import Personage from '../views/Personage.vue'
 import Agreement from '../views/Agreement.vue'
 import Mylv from '../views/Mylv.vue'
@@ -14,6 +15,11 @@ import Tag from '../views/Tag.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/Update',
+    name: 'Update',
+    component:Update
+  },
   {
     path: '/vip',
     name: 'Vip',

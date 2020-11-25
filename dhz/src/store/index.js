@@ -9,12 +9,20 @@ export default new Vuex.Store({
   state: {
     // 获取到的分类
     classify:[JSON.parse(localStorage.getItem('classify')) || {}],
+    userPhone:JSON.parse(localStorage.getItem('userPhone')) || {},
+    isOnlogin:0
   },
   mutations: {
     // 添加日志分类
     addclassify(state,payload){
       state.classify = payload;
       // console.log(this.$store.state.classifys);
+    },
+    login_mutations(state,payload){
+      localStorage.setItem('userPhone',JSON.stringify(payload));
+      localStorage.setItem("isOnlogin",1)
+      state.userPhone = payload;
+      state.isOnlogin = 1;
     }
   },
   actions: {

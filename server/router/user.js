@@ -34,5 +34,26 @@ u.post('/register', (req, res) => {
   })
 });
 
+
+//用户登录接口
+u.post('/login', (req, res) => {
+  console.log(req.body);
+  //获取用户名和密码
+  let phone = req.body.phone;
+  let password = req.body.password;
+  //以用户名和密码为条件进行查找
+  // let sql = 'SELECT uid,username,password,email,phone,avatar,user_name FROM xz_user WHERE username=? AND password=?';
+  let sql = 'SELECT phone FROM dhz_users WHERE phone=? AND password= MD5(?)';
+  pool.query(sql, [phone, password], (error, results) => {
+    if (error) throw error;
+    if (results.length == 0) {
+      res.send({ message: '登录失败', code: 0 });
+    } else {
+      res.send({ message: '登录成功', code: 1,results:results[0]});
+    }
+  });
+});
+
+
 //导出路由
 module.exports=u;

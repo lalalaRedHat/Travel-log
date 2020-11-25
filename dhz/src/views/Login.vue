@@ -21,14 +21,19 @@
           left-icon="goods-collect-o" 
           placeholder="请输入您的密码" 
           maxlength='16'
-          minlength='8'
+          minlength='6'
           class="d2"
           type="password" 
           @blur="checkPassword"
           v-model="password"
           >
+          <!-- 修改密码 -->
           <template #button>
-            <van-button size="small" type="primary" id="btn1">忘记密码</van-button>
+            <router-link to="/Update" >
+              <van-button size="small" type="primary" id="btn1">
+                忘记密码 
+              </van-button>
+             </router-link>
           </template>
         </van-field>
     </div>
@@ -55,72 +60,94 @@
 </template>
 
 <script>
-export default {
-   data(){
-    return{
-      //手机号
-      iserror:false,
-      iserrorMsg:'',
-      text:"",
-      radio: '1',
-      phone:'',
-      value1:'',
-     //密码
-      password:'',
-     
-    }
-  },
-  methods: {
-     //单击登录时校验按钮表单
-     handle(){
-       if(this.checkPhone() && this.checkPassword){
-         this.$router.push("/")
-       }
-     },
-     
-     //密码验证
-      checkPassword() {
-          let password = this.password;
-          let passwordReg = /^[0-9A-Za-z\.\-_]{8,16}$/;
-          if (passwordReg.test(password)) {
-            this.perror = false;
-          } else {
-            this.$toast({
-              message: "密码错误",
-              position: "middle",
-              duration: 5000,
-            });
-            return false;
-
-          }
-        },
-
-    //检测手机号
-    checkPhone() {
-      let phone = this.phone;
-      let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/;
-      if (phoneReg.test(phone)) {
-        // 修改手机号的状态
-      
-        return true;
-      } else {
-        //终止函数的执行
-        this.$toast({
-              message: "手机号格式错误",
-              position: "middle",
-              duration: 5000,
-            });
-        return false;
+  export default {
+    data(){
+      return{
+        //手机号
+        iserror:false,
+        iserrorMsg:'',
+        text:"",
+        radio: '1',
+        phone:'',
+        value1:'',
+      //密码
+        password:'',
+    
       }
     },
-    onClickLeft() {
-      this.$router("/");
-    },
-    onClickLeft() {
-      this.$rooter.push("/register");
-    },
-  },
-};
+    methods: {
+      //单击登录时校验按钮表单
+      handle(){
+        
+         if(this.checkPhone() && this.checkPassword() ){
+           console.log(this.phone,this.password);
+          //  this.$router.push("/")
+        //登录时的接口
+        this.axios.post('/user/login',"phone="+this.phone +'&password=' + this.password).then( res => {
+                  // this.phone = res.data.result;
+                  // console.log(res.data.userInfo);
+                  // 如果等于1登录成功
+                if(res.data.code == 1){
+                  console.log(res.data.code)
+                  console.log(res.data.results)
+                  this.$store.commit("login_mutations",res.data.results);
+                 this.$router.push("/")
+                } else {
+                  // 登录失败
+                   this.$toast.fail('该账号未注册');
+                }
+         });
+
+
+
+
+
+        }
+      },
+      
+      //密码验证
+        checkPassword() {
+            let password = this.password;
+            let passwordReg = /^[0-9A-Za-z\.\-_]{6,16}$/;
+            if (passwordReg.test(password)) {
+              return true;
+            } else {
+              this.$toast({
+                message: "密码错误",
+                position: "middle",
+                duration: 5000,
+              });
+              return false;
+
+            }
+          },
+
+      //检测手机号
+      checkPhone() {
+        let phone = this.phone;
+        let phoneReg = /^1[3-9]\d{9}$/;
+        if (phoneReg.test(phone)) {
+          // 修改手机号的状态
+        
+          return true;
+        } else {
+          //终止函数的执行
+          this.$toast({
+                message: "手机号格式错误",
+                position: "middle",
+                duration: 5000,
+              });
+          return false;
+        }
+      },
+      onClickLeft() {
+        this.$router("/");
+      },
+      onClickLeft() {
+        this.$rooter.push("/register");
+      },
+    }
+  };
 </script>
 
 <!--背景图片的样式-->
