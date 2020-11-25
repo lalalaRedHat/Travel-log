@@ -139,7 +139,7 @@
                 if(this.nickname==""){
                   this.nickname = this.phone;
                 }  
-                this.axios.post('/user/register',"&phone="+this.phone +'&password=' + this.password+"&nickname="+this.nickname).then( res => {
+                this.axios.post('/user/register',"&phone="+this.phone +'&password=' + this.password+"&nickname="+this.nickname ).then( res => {
                 // this.phone = res.data.result;
                 // console.log(res.data.userInfo);
                 this.$router.push("/")
