@@ -74,32 +74,6 @@ j.get('/diary',(req,res)=>{
     
     console.log(cid);
 
-    if ( cid == 1 ) {
-      //SQL查询全部信息
-      let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid ORDER BY jid DESC';
-      // 执行SQL查询
-      pool.query(sql,(err,result)=>{
-          if (err) throw err;
-          console.log(result)
-          let data1 = result;
-          // 循环每个日志查询对应的图片
-          // for (let i = 0; i < result.length; i++) {
-          //     // 获取的每个对象
-          //     let value = result[i];
-          //     // 查询日志附带的图片
-          //     let sql = 'SELECT picture_pic FROM dhz_picture WHERE journal_id=?';
-          //     pool.query(sql,[value.jid],(err,pic)=>{
-          //         if (err) throw err;
-          //         // 拼接每个日志需要的图片
-          //         value.pics = pic;
-          //         if(i == result.length-1){
-          //             res.send({ code:1,result: data1 })
-          //         };
-          //     });
-              
-          // }
-      });      
-    }
     //SQL查询日志全部信息
     let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=? ORDER BY jid DESC';
     // 执行SQL查询
