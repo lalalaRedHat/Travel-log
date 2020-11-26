@@ -32,7 +32,7 @@
               <div class="articleItem">
                 <!-- 日志标题开始 -->
                 <div class="articleItem-header">
-                  <van-image :round="avatar" width="4rem" :src="require(`../assets/avatar/${diary.avatar}`)" fit="cover" class="articleImg"/>
+                  <van-image :round="avatar" width="4rem" :src="'http://127.0.0.1:8888/avatar/'+ diary.avatar" fit="cover" class="articleImg"/>
                   <div class="articleMsg">
                     <div>
                       <span>{{diary.nickname}}</span>
@@ -102,7 +102,7 @@
   }
   .home .top_bg{
     height: 320px;
-    background: url(../assets/common/home_top.jpg) no-repeat center;
+    background: url(../assets/img/home_top.jpg) no-repeat center;
     background-size: 100%;
   }
   .home .top_bg h1,.top_bg span{
@@ -318,7 +318,7 @@ export default {
       // console.log(value);
       // 监听到变化的值发送 active  获取当前的日志
       this.axios.get('/journal/diary?cid=' + value).then( res => {
-        
+        this.diarys = [];
         //获取服务器返回的数据 -- 数组
         this.diarys = res.data.result;
         // console.log(res.data);

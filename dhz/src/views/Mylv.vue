@@ -80,11 +80,11 @@ export default {
     mounted() {
     
    let id = this.$route.params.aid;
-    console.log(id);
+    // console.log(id);
      //获取服务器穿的id值
    this.axios.get('/journal/details?id='+id).then(res=>{
      this.art=res.data.art;
-      console.log(res.data.art);
+      // console.log(res.data.art);
     })
   }
 }

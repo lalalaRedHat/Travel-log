@@ -11,11 +11,11 @@
             >
 
             <template #left>
-                <van-icon name="arrow-left" color="#fff" size="24" />
+                <van-icon name="arrow-left" color="#5ABCC8" size="24" />
             </template>
 
             <template #right>
-                <van-icon name="friends-o" color="#fff" size="24" />
+                <van-icon name="setting-o" color="#5ABCC8" size="24" />
             </template>
 
         </van-nav-bar> 
@@ -26,7 +26,7 @@
                 width="6rem"
                 height="6rem"
                 fit="fill"
-                :src="require('../assets/common/timg.jpg')"
+                :src="require(`../assets/avatar/uname.png`)"
             />
             <!-- 昵称 -->
             <div>
@@ -54,6 +54,7 @@
             </van-tab>
         <div class="img">
             <van-tab title="照片墙" name="b">
+                <lazy-component>
                 <van-image
                     width="125px"
                     height="100px"
@@ -90,16 +91,17 @@
                     fit="fill"
                     :src="require('../assets/journal-pic/a8210544-460c-49ee-ae7f-c1398437332c.jpg')"
                     />
+                </lazy-component>
             </van-tab>
         </div>
-            <van-tab title="个人日志" name="c">
+            <!-- <van-tab title="个人日志" name="c">
                     
 
                 
 
 
 
-            </van-tab>
+            </van-tab> -->
         </van-tabs>
 
                
@@ -107,38 +109,38 @@
     </div>
 </div>
 </template>
-<style scope>
+<style>
     .personage{
         width: 100%;
     }
     .personage .navb{
         background: transparent;
     }
-    .background{
+    .personage .background{
         width: 100%;height: 300px;
         background:
-         url('../assets/common/myPersonage_top.jpg')
+         url('../assets/img/myPersonage_top.jpg')
            repeat ;
           background-size: 100%
     }
-    .background .image{
+    .personage .background .image{
       padding: 40px 100px;
       text-align: center;
     }
-    .background .pname{
+    .personage .background .pname{
         width: 200px;
         font-size: 1rem;
         color:rgba(27, 29, 27, 0.904);
         padding: 150px  10px;
     }
-    .background .man{
+    .personage .background .man{
         margin: -30px 310px;
     }
-    .background .grade{
+    .personage .background .grade{
         width: 100px;
         margin: 10px 30px;
     }
-    .background .personage  .van-tabs__line{
+    .personage .van-tabs__line{
     background-color: #5ABCC8;
   }
 </style>
@@ -153,27 +155,31 @@ export default {
        // 是否吸顶
       isFixed:true,
       art:{},
-      aa:''
+      aa:'',
+      // 当前用户
+      userPhone:this.$store.state.userPhone
     }
   },
-  mounted(){
-      let phone = this.$route.params.phone;
-     //获取服务器传的手机号的值
-   this.axios.get('/journal/individual?phone=18753108178').then(res=>{
-     this.art=res.data.articleInfo;
+   methods:{
+       onClickLeft() {
+            this.$router.push("/");
+        },
+        onClickRight() {
+            this.$router.push("/login");
+        localStorage.clear()
+        },
+    },
+    mounted(){
+        let phone = this.userPhone.phone;
+    //   console.log(phone);
+        //获取服务器传的手机号的值
+   this.axios.get('/journal/individual?phone=' + phone).then(res=>{
+        this.art=res.data.articleInfo;
     // console.log(res.data.articleInfo);
     // console.log(this.art);
     })
-    this.aa=this.art.phone;
-  },
-   methods:{
-    onClickLeft() {
-      this.$router.push("/");
+    // this.aa=this.art.phone;
     },
-     onClickRight() {
-      this.$router.push("/login");
-    },
-    }
 };
 
 </script>

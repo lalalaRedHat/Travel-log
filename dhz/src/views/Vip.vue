@@ -19,7 +19,7 @@
             round
             width="10rem"
             height="10rem"
-            :src="require('../assets/vip/liaotianshi.jpg')"
+            :src="require('../assets/img/liaotianshi.jpg')"
           />
           
     </van-cell-group>

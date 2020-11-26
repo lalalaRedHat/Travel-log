@@ -13,7 +13,7 @@ u.post('/register', (req, res) => {
   let phone = req.body.phone;
   let password = req.body.password;
   let nickname = req.body.nickname;
-   console.log(phone,password);
+  //  console.log(phone,password);
   //查找用户是否存在
   let sql = 'SELECT COUNT(uid) AS count FROM dhz_users WHERE phone=?';
   pool.query(sql, [phone],(error, results) => {
@@ -25,7 +25,7 @@ u.post('/register', (req, res) => {
       
       pool.query(sql, [phone, password,nickname], (error, result) => {
         if (error) throw error;
-        console.log(result);   
+        // console.log(result);   
         res.send({code: 1});
       })
     } else { //否则产生合理的错误提示

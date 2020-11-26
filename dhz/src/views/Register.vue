@@ -26,7 +26,7 @@
     </van-cell-group>
   
      <!-- 短信验证和验证码按钮 -->
-    <van-field
+    <!-- <van-field
         maxlength="6"
         placeholder="请输入短信验证码"
         left-icon="comment-o" 
@@ -34,9 +34,9 @@
         >
         <template #button>
           <van-button size="small" type="warning" >发送验证码</van-button>
-          <!-- <van-button v-if="cutDownTime" size="small" type="primary">{{cutDownTime}}s后再试</van-button> -->
+          <van-button v-if="cutDownTime" size="small" type="primary">{{cutDownTime}}s后再试</van-button>
         </template>
-    </van-field>
+    </van-field> -->
 
         <!-- 昵称 -->
     <van-field  
@@ -142,7 +142,11 @@
                 this.axios.post('/user/register',"&phone="+this.phone +'&password=' + this.password+"&nickname="+this.nickname ).then( res => {
                 // this.phone = res.data.result;
                 // console.log(res.data.userInfo);
-                this.$router.push("/")
+                  if (res.data.code == 1) {
+                    this.$router.push("/login");
+                  } else{
+                    this.$toast.fail('该账号已被注册');
+                  }
                 });
 
             } 
@@ -186,7 +190,7 @@
           // 检测用户手机号
           checkPhone() {
             let phone = this.phone;
-            let phoneReg =/^[1][3,4,5,7,8][0-9]{9}$/g; 
+            let phoneReg =/^[1][3-9]\d{9}$/g; 
             
             if (phoneReg.test(phone)) {
               // 修改手机号的状态
@@ -207,10 +211,6 @@
 
         },
         
-         //注册时的挂载接口
-              mounted() {
-            
-        }
     }
     
 </script>

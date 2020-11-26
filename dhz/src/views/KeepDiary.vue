@@ -199,7 +199,7 @@ export default {
   methods: {
     // 获取图片读取后的参数
     afterRead(file) {
-      console.log(file);
+      // console.log(file);
       // 创建表单数据对象
       //let formData = new FormData();
       // 如果传的参的content属性存在则为对象
@@ -228,7 +228,7 @@ export default {
     
     // 城市选择
     oncity(value) {
-      console.log(value);
+      // console.log(value);
       if (value[1] == undefined || value[1] == "") {
         value[1] = "";
         this.current_city = value[0] + value[1];
@@ -250,7 +250,7 @@ export default {
 
     // 发布日志
     release(){
-      console.log( this.userPhone );
+      // console.log( this.userPhone );
       // 获取用户
       let phone = this.userPhone.phone
       // 获取登录状态

@@ -9,9 +9,7 @@ const uuid = require('uuid');
 // 引入fs模块
 const fs = require('fs');
 
-var http = require('http');
-var url = require("url");
-var querystring = require("querystring");
+
 
 /*********** 文件上传配置 ***********/
 // 定义存储规则
@@ -72,7 +70,7 @@ j.get('/diary',(req,res)=>{
     // 获取cid参数,该参数表示的分类的ID
     let cid = req.query.cid;
     
-    console.log(cid);
+    // console.log(cid);
 
     //SQL查询日志全部信息
     let sql = 'SELECT jid,journal_title,content,log_time,browse,msg_number,journal_city,avatar,nickname FROM dhz_journal INNER JOIN dhz_users ON users_id = uid WHERE journal_classify=? ORDER BY jid DESC';
@@ -157,10 +155,10 @@ j.post('/diaryadd',upload.array('journal_pic'),(req,res)=>{
         if (err) throw err;
         // result.affectedRows 大于0 则插入成功
         if (result.affectedRows > 0) {
-            let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES(?,(SELECT uid FROM dhz_users WHERE phone=?))";
+            let sql = "INSERT INTO dhz_picture (picture_pic,journal_id) VALUES (?,(SELECT jid FROM dhz_journal  WHERE journal_title=?))";
             //遍历操作,将上传的文件信息依次写入到数据库
             files.forEach(file=>{
-                pool.query( sql,[ file.filename,obj.phone ],(err,filename)=>{
+                pool.query( sql,[ file.filename,obj.journal_title ],(err,filename)=>{
                     if (err) throw err;
                 });
             });
@@ -206,10 +204,10 @@ j.get('/details',(req,res)=>{
 j.get('/individual',(req,res)=>{
     //获取URL地址栏的参数
   let phone =  req.query.phone;
-  console.log(phone);
+//   console.log(phone);
   //SQL查询
 //   let sql ='SELECT phone FROM dhz_users WHERE phone=?';
-  let sql ='SELECT uid,nickname,phone,sex,birthday,city,vip,autograph FROM dhz_users WHERE phone=?';
+  let sql ='SELECT uid,nickname,phone,sex,birthday,city,vip,autograph,avatar FROM dhz_users WHERE phone=?';
   // 执行SQL查询
   pool.query(sql,[phone],(error,results)=>{
     if(error) throw error;

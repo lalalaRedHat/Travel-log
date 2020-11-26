@@ -48,14 +48,14 @@
 
 
     <!-- 第三方引入 -->
-    <div class="shejiao">
+    <!-- <div class="shejiao">
       <router-link to="" class="qq">
         <van-image :src="require('../assets/img/qq.png')" width="25" /> QQ登录
       </router-link>
       <router-link to="" class="wx">
         微信登录<van-image :src="require('../assets/img/wx.png')" width="25" />
       </router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -80,7 +80,7 @@
       handle(){
         
          if(this.checkPhone() && this.checkPassword() ){
-           console.log(this.phone,this.password);
+          //  console.log(this.phone,this.password);
           //  this.$router.push("/")
         //登录时的接口
         this.axios.post('/user/login',"phone="+this.phone +'&password=' + this.password).then( res => {
@@ -88,8 +88,8 @@
                   // console.log(res.data.userInfo);
                   // 如果等于1登录成功
                 if(res.data.code == 1){
-                  console.log(res.data.code)
-                  console.log(res.data.results)
+                  // console.log(res.data.code)
+                  // console.log(res.data.results)
                   this.$store.commit("login_mutations",res.data.results);
                  this.$router.push("/")
                 } else {
