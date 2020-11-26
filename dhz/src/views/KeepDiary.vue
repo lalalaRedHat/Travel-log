@@ -256,7 +256,7 @@ export default {
       // 获取登录状态
       let isOnlogin = this.$store.state.isOnlogin;
       // 如果登录状态为1则为登录
-      if ( 1 == 1) {
+      if ( isOnlogin == 1) {
         // 获取当前时间
         let current_time = this.moment().format('x');
 
