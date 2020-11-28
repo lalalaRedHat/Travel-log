@@ -16,6 +16,7 @@ Vue.use(VantUI);
 
 // 配置请求的基准URL地址
 axios.defaults.baseURL = 'http://127.0.0.1:8888';
+// axios.defaults.baseURL = 'http://dahz.applinzi.com';
 Vue.prototype.axios = axios;
 Vue.prototype.moment = moment;
 moment.locale("zh-cn");

@@ -300,7 +300,7 @@ export default {
       let pic = [];
       images.forEach((value, index, array) => {
         //              获取路径前面的url  拼接  图片名
-        pic.push( `http://127.0.0.1:8888/journal-pic/${value.picture_pic}`);
+        pic.push( `http://127.0.0.1/journal-pic/${value.picture_pic}`);
       }); 
       // ImagePreview 图片预览组件
       ImagePreview({
