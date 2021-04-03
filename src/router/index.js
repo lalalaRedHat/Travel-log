@@ -18,52 +18,52 @@ const routes = [
   {
     path: '/Update',
     name: 'Update',
-    component:Update
+    component: () => import(/* webpackChunkName: "Update" */ '../views/Update.vue')
   },
   {
     path: '/vip',
     name: 'Vip',
-    component:Vip
+    component: () => import(/* webpackChunkName: "vip" */ '../views/Vip.vue')
   },
   {
     path: '/tag',
     name: 'Tag',
-    component:Tag
+    component: () => import(/* webpackChunkName: "tag" */ '../views/Tag.vue')
   },
   {
     path: '/agreement',
     name: 'Agreement',
-    component:Agreement
+    component: () => import(/* webpackChunkName: "agreement" */ '../views/Agreement.vue')
   },
   {
     path: '/mylv/:aid',
     name: 'Mylv',
-    component:Mylv
+    component: () => import(/* webpackChunkName: "mylv" */ '../views/Mylv.vue')
   },
   {
     path: '/personage',
     name: 'Personage',
-    component: Personage
+    component: () => import(/* webpackChunkName: "personage" */ '../views/Personage.vue')
   },
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import(/* webpackChunkName: "" */ '../views/Home.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue')
   },
   {
     path: '/keepdiary',
     name: 'KeepDiary',
-    component: KeepDiary
+    component: () => import(/* webpackChunkName: "keepdiary" */ '../views/KeepDiary.vue')
   },
   // {
   //   path: '/about',
